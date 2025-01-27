@@ -12,7 +12,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/project_logo"
             android:scaleType="centerCrop"
             android:layout_marginBottom="16dp" />
 
@@ -38,4 +38,108 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:layout_marginBottom="16dp" tools:ignore="HardcodedText"/>
+
+    <!-- Profile Stats -->
+    <LinearLayout
+            android:id="@+id/profile_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <!-- Posts Count -->
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
+                android:gravity="center">
+
+            <TextView
+                    android:id="@+id/posts_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Zero"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Posts"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- Followers Count -->
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
+                android:gravity="center">
+
+            <TextView
+                    android:id="@+id/followers_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Zero"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Followers"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- Following Count -->
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+            <TextView
+                    android:id="@+id/following_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Zero"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Following"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Edit Profile Button -->
+    <Button
+            android:id="@+id/edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/EditProfile"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black" />
+
+    <!-- Placeholder for User Posts or Content -->
+    <TextView
+            android:id="@+id/user_posts_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/ProfilePrompt"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
 </LinearLayout>
