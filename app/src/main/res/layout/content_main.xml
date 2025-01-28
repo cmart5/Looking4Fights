@@ -9,12 +9,12 @@
     <fragment
             android:id="@+id/nav_host_fragment_content_main"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"/>
+            app:navGraph="@navigation/nav_graph" app:layout_constraintHorizontal_bias="0.218"
+            android:layout_marginBottom="684dp" app:layout_constraintDimensionRatio="1:1"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
