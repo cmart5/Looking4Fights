@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary Colors -->
+    <color name="primary">#1E1E1E</color> <!-- Dark Gray (Base) -->
+    <color name="primary_light">#333333</color> <!-- Slightly Lighter Gray -->
+    <color name="primary_dark">#0F0F0F</color> <!-- Almost Black -->
+
+    <!-- Accent Colors (Inspired by the Logo) -->
+    <color name="accent">#FF9800</color> <!-- Orange for contrast -->
+    <color name="accent_light">#FFC107</color> <!-- Yellow-Orange -->
+    <color name="accent_dark">#E65100</color> <!-- Darker Orange -->
+
+    <!-- Text & Background Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray_light">#F5F5F5</color> <!-- Light Gray Background -->
+    <color name="gray_dark">#757575</color> <!-- Dark Gray Text -->
 
+    <!-- Button & UI Colors -->
+    <color name="button_background">#FF9800</color> <!-- Same as accent for buttons -->
+    <color name="button_text">#FFFFFF</color> <!-- White text on buttons -->
 </resources>
