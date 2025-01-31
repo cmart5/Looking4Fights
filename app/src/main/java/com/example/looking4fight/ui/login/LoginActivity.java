@@ -2,6 +2,7 @@ package com.example.looking4fight.ui.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("LoginActivity", "onStart() is running...");
+        mAuth = FirebaseAuth.getInstance();
         //If user is already signed in, automatically sign in
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
@@ -38,14 +41,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //@Override
-    protected void OnCreate(Bundle savedInstanceState)
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
-        editTextEmail = findViewById(R.id.username);
-        editTextPassword = findViewById(R.id.password);
+        mAuth = FirebaseAuth.getInstance();
+        editTextEmail = findViewById(R.id.inputLayout);
+        editTextPassword = findViewById(R.id.passwordLayout);
         buttonReg = findViewById(R.id.btn_register);
         buttonLogin = findViewById(R.id.login);
 
