@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.looking4fight.MainActivity">
+    <item android:title="Home"
+          android:icon="@drawable/baseline_home_24"
+          android:id="@+id/home"/>
+    <item android:title="Profile"
+          android:icon="@drawable/baseline_account_box_24"
+          android:id="@+id/profile"/>
+    <item android:title="Settings"
+          android:icon="@drawable/baseline_app_settings_alt_24"
+          android:id="@+id/settings"/>
+</menu>

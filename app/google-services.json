@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "297575092045",
+    "project_id": "looking4fight-52617",
+    "storage_bucket": "looking4fight-52617.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297575092045:android:e2c367d85310833872b104",
+        "android_client_info": {
+          "package_name": "com.example.looking4fight"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUMzfuE4b4WouwU1opzZXqIooe66Je_wE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
