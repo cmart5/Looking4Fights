@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     TextInputLayout editTextEmail, editTextPassword, editTextConfirmPassword;
     Button buttonReg;
+    /*
     @Override
     public void onStart() {
         //If user is already signed in, automatically sign in
@@ -35,22 +36,27 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    } */
 
-    //@Override
-    protected void OnCreate(Bundle savedInstanceState)
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
-        editTextEmail = findViewById(R.id.username);
-        editTextPassword = findViewById(R.id.password);
-        editTextPassword = findViewById(R.id.password_confirm);
+        editTextEmail = findViewById(R.id.usernameLayout);
+        editTextPassword = findViewById(R.id.passwordLayout);
+        editTextPassword = findViewById(R.id.password_confirm_layout);
         buttonReg = findViewById(R.id.btn_register);
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /* TODO:
+                    1.Fix crash when register button is clicked
+                    2.Add back button to register page
+                    3.Add forgot password to login page
+                 */
                 String email, password, confirmPassword;
                 email = String.valueOf(editTextEmail.getEditText());
                 password = String.valueOf(editTextPassword.getEditText());
