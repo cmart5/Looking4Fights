@@ -17,7 +17,7 @@ public class BackendInitializer {
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://your-database-name.firebaseio.com")
+                .setDatabaseUrl(https://console.firebase.google.com/u/1/project/looking4fight-52617/firestore/databases/-default-/data/~2FUser~2Fuser)
                 .build();
 
         FirebaseApp.initializeApp(options);
