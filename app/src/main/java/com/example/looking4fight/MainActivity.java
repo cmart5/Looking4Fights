@@ -4,18 +4,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import com.example.looking4fight.databinding.ActivityMainBinding;
-import com.example.looking4fight.R;
-
-import android.view.Menu;
-import android.view.MenuItem;
+import com.example.looking4fight.ui.login.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,20 +20,25 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        replaceFragment(new SecondFragment());
+        if (savedInstanceState == null)
+        {
+            replaceFragment(new ExploreFragment()); //Prevent reloading
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item ->
         {
 
             if (item.getItemId() == R.id.home)
             {
-                replaceFragment(new SecondFragment());
-            } else if (item.getItemId() == R.id.profile)
+                replaceFragment(new ExploreFragment());
+            }
+            else if (item.getItemId() == R.id.profile)
             {
-                replaceFragment(new FirstFragment());
-            } else if (item.getItemId() == R.id.settings)
+                replaceFragment(new ProfileFragment());
+            }
+            else if (item.getItemId() == R.id.settings)
             {
-                replaceFragment(new ThirdFragment());
+                replaceFragment(new SettingsFragment());
             }
 
             return true;
@@ -52,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frameLayout);
+
+        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass()))
+        {
+            return; // Avoid unnecessary fragment reload
+        }
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();

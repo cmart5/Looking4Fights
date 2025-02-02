@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add"
-            android:backgroundTint="@color/primary"/>
+            android:src="@drawable/baseline_add_box_24"/>
+<!--            android:backgroundTint="@color/primary"/>-->
 
 </LinearLayout>
