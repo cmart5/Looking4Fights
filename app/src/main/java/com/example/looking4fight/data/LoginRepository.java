@@ -1,54 +1,98 @@
 package com.example.looking4fight.data;
 
-import com.example.looking4fight.data.model.LoggedInUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.FacebookAuthProvider;
 
-/**
- * Class that requests authentication and user information from the remote data source and
- * maintains an in-memory cache of login status and user credentials information.
- */
 public class LoginRepository {
-
     private static volatile LoginRepository instance;
+    private FirebaseAuth mAuth;
 
-    private LoginDataSource dataSource;
-
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
-    private LoggedInUser user = null;
-
-    // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
-        this.dataSource = dataSource;
+    // Private constructor: Singleton
+    private LoginRepository() {
+        mAuth = FirebaseAuth.getInstance();
     }
 
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
+    public static LoginRepository getInstance() {
         if (instance == null) {
-            instance = new LoginRepository(dataSource);
+            instance = new LoginRepository();
         }
         return instance;
     }
 
+    // Check if user is logged in
     public boolean isLoggedIn() {
-        return user != null;
+        return mAuth.getCurrentUser() != null;
     }
 
+    // Get current user
+    public FirebaseUser getCurrentUser() {
+        return mAuth.getCurrentUser();
+    }
+
+    // Log out user
     public void logout() {
-        user = null;
-        dataSource.logout();
+        mAuth.signOut();
     }
 
-    private void setLoggedInUser(LoggedInUser user) {
-        this.user = user;
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
+    // Login user with email & password
+    public void loginUser(String email, String password, final LoginCallback callback) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(mAuth.getCurrentUser());
+                    } else {
+                        callback.onFailure(task.getException());
+                    }
+                });
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
-        // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-        }
-        return result;
+    // Register user with email & password
+    public void registerUser(String email, String password, final LoginCallback callback) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(mAuth.getCurrentUser());
+                    } else {
+                        callback.onFailure(task.getException());
+                    }
+                });
+    }
+
+    // 🔹 Google Login
+    public void loginWithGoogle(String idToken, final LoginCallback callback) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(mAuth.getCurrentUser());
+                    } else {
+                        callback.onFailure(task.getException());
+                    }
+                });
+    }
+
+    // 🔹 Facebook Login
+    public void loginWithFacebook(String accessToken, final LoginCallback callback) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(mAuth.getCurrentUser());
+                    } else {
+                        callback.onFailure(task.getException());
+                    }
+                });
+    }
+
+    // Callback interface for login/register operations
+    public interface LoginCallback {
+        void onSuccess(FirebaseUser user);
+        void onFailure(Exception e);
     }
 }

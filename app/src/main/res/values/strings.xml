@@ -2,6 +2,7 @@
     <string name="app_name">Looking 4 Fights</string>
     <string name="app_icon_name">L4F</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -13,6 +14,16 @@
     <string name="Zero">0</string>
     <string name="EditProfile">Edit Profile</string>
     <string name="ProfilePrompt">Your posts will appear here.</string>
+
+    <!-- Facebook Auth -->
+    <string name="facebook_app_id">3816220628643039</string>
+    <string name="facebook_client_token">EAA2O1Rr0bN8BO4DIICe5oT8tC5zrViDHhz8HzsZCnsDBlTmUqZBhspfJwAoVcNjZCJY32CGjWN5924LxVyaQLSezJEO1V7ERpdrb5VukGI3jtbYLmnCQsk6N2BdnK6ZA7QSxAc3l75GeVwPjxrOfdHrqLNBgEbXc7RopeEsNuLGrZCxWJZCJdyr9MFNZBNmrl0CNdsC3BDPOOmUjEAhvwhwPaB2puMbA1FQaCjNyVsZCFrBlNbCFR0ZCawgq4T7TZAuwZDZD</string>
+
+    <!-- Google Auth -->
+    <string name="default_web_client_id">297575092045-hqh9s22mqvf10l6okvagls2jp8l55buk.apps.googleusercontent.com</string>
+
+    <!-- Screen Reader -->
+    <string name="profile_image_desc">User profile picture</string>
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
