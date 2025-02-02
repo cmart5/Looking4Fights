@@ -1,10 +1,8 @@
 plugins {
     id("com.android.application")
-
-    // Adds the Google services Gradle plugin
     id("com.google.gms.google-services")
-
 }
+
 
 android {
     namespace = "com.example.looking4fight"

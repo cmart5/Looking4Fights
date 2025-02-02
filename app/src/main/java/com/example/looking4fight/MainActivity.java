@@ -1,47 +1,62 @@
 package com.example.looking4fight;
+
 import android.os.Bundle;
-import android.util.Log;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.looking4fight.databinding.ActivityMainBinding;
 import com.example.looking4fight.ui.login.ProfileFragment;
-import com.example.looking4fight.ui.login.SecondFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    ActivityMainBinding binding;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            Log.d("MainActivity", "Button Clicked: " + itemId); // Log for Debugging
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-            if (itemId == R.id.nav_profile) {
-                Log.d("MainActivity", "Loading ProfileFragment");
-                loadFragment(new ProfileFragment());
-                return true;
-            } else if (itemId == R.id.nav_upload) {
-                Log.d("MainActivity", "Loading SecondFragment");
-                loadFragment(new SecondFragment());
-                return true;
-            }
-            return false;
-        });
-
-        // Load ProfileFragment by default
-        if (savedInstanceState == null) {
-            Log.d("MainActivity", "Loading Default ProfileFragment");
-            loadFragment(new ProfileFragment());
+        if (savedInstanceState == null)
+        {
+            replaceFragment(new ExploreFragment()); //Prevent reloading
         }
+
+        binding.bottomNavigationView.setOnItemSelectedListener(item ->
+        {
+
+            if (item.getItemId() == R.id.home)
+            {
+                replaceFragment(new ExploreFragment());
+            }
+            else if (item.getItemId() == R.id.profile)
+            {
+                replaceFragment(new ProfileFragment());
+            }
+            else if (item.getItemId() == R.id.settings)
+            {
+                replaceFragment(new SettingsFragment());
+            }
+
+            return true;
+        });
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.commitAllowingStateLoss();  // Prevents crashes when state is lost
-    }
+    private void replaceFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frameLayout);
 
+        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass()))
+        {
+            return; // Avoid unnecessary fragment reload
+        }
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
+    }
 }
