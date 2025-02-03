@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors -->
-    <color name="primary">#1E1E1E</color> <!-- Dark Gray (Base) -->
-    <color name="primary_light">#333333</color> <!-- Slightly Lighter Gray -->
+    <!-- Primary Theme Colors (Black & Gray from Logo) -->
+    <color name="primary">#000000</color> <!-- Black (Base) -->
+    <color name="primary_light">#1E1E1E</color> <!-- Dark Gray -->
     <color name="primary_dark">#0F0F0F</color> <!-- Almost Black -->
 
-    <!-- Accent Colors (Inspired by the Logo) -->
-    <color name="accent">#FF9800</color> <!-- Orange for contrast -->
-    <color name="accent_light">#FFC107</color> <!-- Yellow-Orange -->
-    <color name="accent_dark">#E65100</color> <!-- Darker Orange -->
+    <!-- Accent Colors (Red & Blue from Logo) -->
+    <color name="accent">#FF0000</color> <!-- Red -->
+    <color name="accent_light">#FF4D4D</color> <!-- Light Red -->
+    <color name="accent_dark">#B20000</color> <!-- Dark Red -->
+
+    <color name="secondary">#00A6FF</color> <!-- Blue from Logo -->
+    <color name="secondary_light">#66C7FF</color> <!-- Light Blue -->
+    <color name="secondary_dark">#0072B5</color> <!-- Dark Blue -->
 
     <!-- Text & Background Colors -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="gray_light">#F5F5F5</color> <!-- Light Gray Background -->
-    <color name="gray_dark">#757575</color> <!-- Dark Gray Text -->
+    <color name="white">#FFFFFF</color> <!-- White Text -->
+    <color name="gray_light">#E0E0E0</color> <!-- Light Gray -->
+    <color name="gray_dark">#757575</color> <!-- Dark Gray -->
 
-    <!-- Button & UI Colors -->
-    <color name="button_background">#FF9800</color> <!-- Same as accent for buttons -->
-    <color name="button_text">#FFFFFF</color> <!-- White text on buttons -->
+    <!-- Button Colors -->
+    <color name="button_background">#00A6FF</color> <!-- Blue Button Background -->
+    <color name="button_text">#FFFFFF</color> <!-- White Button Text -->
+
+    <!-- Facebook & Google Specific Colors -->
+    <color name="facebookBlue">#1877F2</color>
+    <color name="googleRed">#DB4437</color>
 </resources>
