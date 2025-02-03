@@ -2,7 +2,6 @@ package com.example.looking4fight.ui.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,6 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                    String error = task.getException().getMessage();
+                                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
