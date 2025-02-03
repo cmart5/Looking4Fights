@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout editTextEmail, editTextPassword, editTextConfirmPassword;
     Button buttonReg;
     ImageButton buttonBack;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
