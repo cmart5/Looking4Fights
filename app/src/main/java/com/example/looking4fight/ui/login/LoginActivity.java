@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("LoginActivity", "onStart() is running...");
         mAuth = FirebaseAuth.getInstance();
         //If user is already signed in, automatically sign in
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -66,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email, password;
-                email = String.valueOf(editTextEmail.getEditText());
-                password = String.valueOf(editTextPassword.getEditText());
+                email = String.valueOf(editTextEmail.getEditText().getText());
+                password = String.valueOf(editTextPassword.getEditText().getText());
 
                 if(TextUtils.isEmpty(email))
                 {
