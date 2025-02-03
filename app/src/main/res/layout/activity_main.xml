@@ -22,9 +22,9 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="206dp"
-            android:layout_height="202dp"
-            android:text="Hello World!!!!!\n\n\n\n\n\n\n\nSUCK MY BALLS" />
+            android:layout_width="438dp"
+            android:layout_height="386dp"
+            android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\IT WORKS!!!!" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

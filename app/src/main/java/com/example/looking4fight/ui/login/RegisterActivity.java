@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,19 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     TextInputLayout editTextEmail, editTextPassword, editTextConfirmPassword;
     Button buttonReg;
-    /*
-    @Override
-    public void onStart() {
-        //If user is already signed in, automatically sign in
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    } */
-
+    ImageButton buttonBack;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,8 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         editTextEmail = findViewById(R.id.usernameLayout);
         editTextPassword = findViewById(R.id.passwordLayout);
-        editTextPassword = findViewById(R.id.password_confirm_layout);
+        editTextConfirmPassword = findViewById(R.id.password_confirm_layout);
         buttonReg = findViewById(R.id.btn_register);
+        buttonBack = findViewById(R.id.btn_back);
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
                     3.Add forgot password to login page
                  */
                 String email, password, confirmPassword;
-                email = String.valueOf(editTextEmail.getEditText());
-                password = String.valueOf(editTextPassword.getEditText());
-                confirmPassword = String.valueOf(editTextConfirmPassword.getEditText());
+                email = String.valueOf(editTextEmail.getEditText().getText()); //ignore the warning, it works
+                password = String.valueOf(editTextPassword.getEditText().getText()); //ignore the warning, it works
+                confirmPassword = String.valueOf(editTextConfirmPassword.getEditText().getText()); //ignore the warning, it works
 
                 if(TextUtils.isEmpty(email))
                 {
@@ -81,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                Toast.makeText(RegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
                 //creates new user
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -91,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
 
-                                    //goes back to Login Activity
+                                    //goes back to Log in Activity
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -103,6 +94,16 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //goes back to login page
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
