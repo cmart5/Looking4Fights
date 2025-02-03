@@ -25,6 +25,15 @@
             android:layout_width="438dp"
             android:layout_height="386dp"
             android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\IT WORKS!!!!" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetLeft="24dp"
+            android:insetTop="24dp"
+            android:insetRight="0dp"
+            android:text="Log Out" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
