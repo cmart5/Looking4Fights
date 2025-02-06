@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <TextView
+            android:id="@+id/post_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="4dp"/>
+
+    <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"/>
+
+    <TextView
+            android:id="@+id/post_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100 likes"
+            android:textSize="14sp"
+            android:paddingTop="4dp"/>
+
+    <TextView
+            android:id="@+id/post_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is a caption"
+            android:textSize="14sp"
+            android:paddingTop="2dp"/>
+
+</LinearLayout>
