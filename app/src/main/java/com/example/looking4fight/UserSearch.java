@@ -20,7 +20,6 @@ public class UserSearch {
         users.add(new User(3, "Jack Johnson", LocalDate.of(2023, 12, 20)));
         users.add(new User(4, "Emily Davis", LocalDate.of(2024, 2, 5)));
     }
-
     // Levenshtein Distance Algorithm
     private int levenshteinDistance(String s1, String s2) {
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
@@ -63,9 +62,9 @@ public class UserSearch {
     public static void main(String[] args) {
         UserSearch userSearch = new UserSearch();
 
-        String searchQuery = "Emly Dvis"; // Intentional typo for testing
+        String searchQuery = "Emly Dvis"; // Typo for testing
         LocalDate filterDate = LocalDate.of(2024, 1, 1); // Filter users posted on or after this date
-        int maxDistance = 2; // Allow up to 2 character differences
+        int maxDistance = 2;
 
         List<User> foundUsers = userSearch.searchUsers(searchQuery, filterDate, maxDistance);
 
