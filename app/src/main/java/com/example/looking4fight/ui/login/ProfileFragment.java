@@ -29,6 +29,7 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
     private ImageView profileImage;
     private TextView userName, userBio, postCount, followerCount, followingCount;
+    private TextView userHeight, userWeight, userReach, userLocation, userGym;
     private Button editProfileButton;
     private FloatingActionButton addPostButton;
     private RecyclerView postRecyclerView;
@@ -51,6 +52,11 @@ public class ProfileFragment extends Fragment {
         postCount = view.findViewById(R.id.post_count);
         followerCount = view.findViewById(R.id.follower_count);
         followingCount = view.findViewById(R.id.following_count);
+        userHeight = view.findViewById(R.id.user_height);
+        userWeight = view.findViewById(R.id.user_weight);
+        userReach = view.findViewById(R.id.user_reach);
+        userLocation = view.findViewById(R.id.user_location);
+        userGym = view.findViewById(R.id.user_gym);
         editProfileButton = view.findViewById(R.id.edit_profile_button);
         addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
@@ -66,27 +72,32 @@ public class ProfileFragment extends Fragment {
         // Load User Profile
         userProfileManager.fetchUserProfile(new UserProfileManager.UserProfileCallback() {
             @Override
-            public void onProfileLoaded(String name, String bio, String profileImageUri, long posts, long followers, long following) {
-                userName.setText(name);
-                userBio.setText(bio);
+            public void onProfileLoaded(String name, String bio, String profileImageUri, long posts, long followers, long following,
+                                        String height, String weight, String reach, String location, String gym) {
+                userName.setText(name != null ? name : "Unknown User");
+                userBio.setText(bio != null ? bio : "No bio available.");
                 postCount.setText(String.valueOf(posts));
                 followerCount.setText(String.valueOf(followers));
                 followingCount.setText(String.valueOf(following));
+                userHeight.setText("Height: " + (height != null ? height : "N/A"));
+                userWeight.setText("Weight: " + (weight != null ? weight : "N/A"));
+                userReach.setText("Reach: " + (reach != null ? reach : "N/A"));
+                userLocation.setText("Location: " + (location != null ? location : "N/A"));
+                userGym.setText("Gym: " + (gym != null ? gym : "N/A"));
 
                 // Load profile image using Glide
                 if (profileImageUri != null && !profileImageUri.isEmpty()) {
-                    hasProfilePicture = true;
                     Glide.with(requireContext())
                             .load(profileImageUri)
                             .placeholder(R.drawable.loading_bar)
                             .error(R.drawable.error_image)
                             .into(profileImage);
                 } else {
-                    hasProfilePicture = false;
                     profileImage.setImageResource(R.drawable.default_profile);
                 }
             }
         });
+
 
         // Load only the user's posts
         loadUserPosts();
@@ -95,62 +106,74 @@ public class ProfileFragment extends Fragment {
         profileImage.setOnClickListener(v -> openGallery());
 
         // Open Edit Profile Dialog for Name & Bio
-        editProfileButton.setOnClickListener(v -> openEditProfileDialog());
+        editProfileButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Edit Profile");
+
+            // Inflate the dialog layout
+            View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_profile, null);
+            builder.setView(dialogView);
+
+            EditText editUserName = dialogView.findViewById(R.id.edit_username);
+            EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
+            EditText editHeight = dialogView.findViewById(R.id.edit_height);
+            EditText editWeight = dialogView.findViewById(R.id.edit_weight);
+            EditText editReach = dialogView.findViewById(R.id.edit_reach);
+            EditText editLocation = dialogView.findViewById(R.id.edit_location);
+            EditText editGym = dialogView.findViewById(R.id.edit_gym);
+
+            // Pre-fill fields with existing user data
+            editUserName.setText(userName.getText().toString());
+            editUserBio.setText(userBio.getText().toString());
+            editHeight.setText(userHeight.getText().toString().replace("Height: ", ""));
+            editWeight.setText(userWeight.getText().toString().replace("Weight: ", ""));
+            editReach.setText(userReach.getText().toString().replace("Reach: ", ""));
+            editLocation.setText(userLocation.getText().toString().replace("Location: ", ""));
+            editGym.setText(userGym.getText().toString().replace("Gym: ", ""));
+
+            builder.setPositiveButton("Save", (dialog, which) -> {
+                String newUserName = editUserName.getText().toString();
+                String newUserBio = editUserBio.getText().toString();
+                String newHeight = editHeight.getText().toString();
+                String newWeight = editWeight.getText().toString();
+                String newReach = editReach.getText().toString();
+                String newLocation = editLocation.getText().toString();
+                String newGym = editGym.getText().toString();
+
+                // Update UI
+                userName.setText(newUserName);
+                userBio.setText(newUserBio);
+                userHeight.setText("Height: " + newHeight);
+                userWeight.setText("Weight: " + newWeight);
+                userReach.setText("Reach: " + newReach);
+                userLocation.setText("Location: " + newLocation);
+                userGym.setText("Gym: " + newGym);
+
+                // Save changes to Firestore
+                userProfileManager.updateProfile(newUserName, newUserBio, imageUri, newHeight, newWeight, newReach, newLocation, newGym, new UserProfileManager.UpdateCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(requireContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         // Add Post Button Click
         addPostButton.setOnClickListener(v -> openPostCreationDialog());
 
         return view;
-    }
-
-    // Open Edit Profile Dialog for Name & Bio
-    private void openEditProfileDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Edit Profile");
-
-        // Inflate the dialog layout
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_profile, null);
-        builder.setView(dialogView);
-
-        EditText editUserName = dialogView.findViewById(R.id.edit_username);
-        EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
-
-        // Pre-fill fields with existing user data
-        editUserName.setText(userName.getText().toString());
-        editUserBio.setText(userBio.getText().toString());
-
-        // Auto-highlight text for quick editing
-        editUserName.requestFocus();
-        editUserName.selectAll();
-        editUserBio.selectAll();
-
-        builder.setPositiveButton("Save", (dialog, which) -> {
-            String newUserName = editUserName.getText().toString();
-            String newUserBio = editUserBio.getText().toString();
-
-            // Update UI
-            userName.setText(newUserName);
-            userBio.setText(newUserBio);
-
-            // Save changes to Firestore or local storage
-            userProfileManager.updateProfile(newUserName, newUserBio, imageUri, new UserProfileManager.UpdateCallback() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(requireContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     // Open Image Picker for Profile Picture
@@ -182,19 +205,20 @@ public class ProfileFragment extends Fragment {
 
     // Save Profile Picture
     private void updateProfilePicture() {
-        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, new UserProfileManager.UpdateCallback() {
-            @Override
-            public void onSuccess() {
-                if (imageUri != null) {
-                    Glide.with(requireContext()).load(imageUri).into(profileImage);
-                }
-            }
+        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, userHeight.getText().toString(), userWeight.getText().toString(),
+                userReach.getText().toString(), userLocation.getText().toString(), userGym.getText().toString(), new UserProfileManager.UpdateCallback() {
+                    @Override
+                    public void onSuccess() {
+                        if (imageUri != null) {
+                            Glide.with(requireContext()).load(imageUri).into(profileImage);
+                        }
+                    }
 
-            @Override
-            public void onFailure(Exception e) {
-                e.printStackTrace();
-            }
-        });
+                    @Override
+                    public void onFailure(Exception e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     // Load user posts

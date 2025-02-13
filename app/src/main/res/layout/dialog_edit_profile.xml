@@ -22,4 +22,49 @@
             android:textSize="16sp"
             android:layout_marginTop="8dp" />
 
+    <!-- Edit Height Field -->
+    <EditText
+            android:id="@+id/edit_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter height"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+    <!-- Edit Weight Field -->
+    <EditText
+            android:id="@+id/edit_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter weight"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+    <!-- Edit Reach Field -->
+    <EditText
+            android:id="@+id/edit_reach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter reach"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+    <!-- Edit Location Field -->
+    <EditText
+            android:id="@+id/edit_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter location"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+    <!-- Edit Gym Field -->
+    <EditText
+            android:id="@+id/edit_gym"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter gym"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
 </LinearLayout>

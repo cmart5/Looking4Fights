@@ -11,20 +11,20 @@
     <FrameLayout
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp">
 
         <!-- Profile Picture -->
-        <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_profile"
-                android:background="@null"
-                android:clickable="true"
-                android:focusable="true"/>
-
+    <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profile_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/default_profile"
+            style="@style/CircleImageView"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:focusable="true" />
     </FrameLayout>
 
     <!-- Username -->
@@ -37,7 +37,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="8dp" />
 
     <!-- Bio -->
     <TextView
@@ -53,12 +53,15 @@
     <!-- Edit Profile Button -->
     <Button
             android:id="@+id/edit_profile_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
             android:text="Edit Profile"
-            android:backgroundTint="@color/white"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:textSize="16sp" />
 
     <!-- Profile Stats -->
     <LinearLayout
@@ -66,7 +69,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="8dp">
+            android:layout_marginBottom="16dp">
 
         <!-- Posts -->
         <LinearLayout
@@ -83,14 +86,14 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Posts"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
         </LinearLayout>
 
         <!-- Followers -->
@@ -108,14 +111,14 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Followers"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
         </LinearLayout>
 
         <!-- Following -->
@@ -132,38 +135,92 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Following"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black" />
         </LinearLayout>
-
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/feed_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <!-- Fighter Stats Section -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/stats_background"
+            android:padding="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:elevation="4dp">
+
+        <!-- Height -->
+        <TextView
+                android:id="@+id/user_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Height: N/A"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Weight -->
+        <TextView
+                android:id="@+id/user_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weight: N/A"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Reach -->
+        <TextView
+                android:id="@+id/user_reach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reach: N/A"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Location -->
+        <TextView
+                android:id="@+id/user_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location: N/A"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+
+        <!-- Gym -->
+        <TextView
+                android:id="@+id/user_gym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gym: N/A"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <!-- Posts Recycler View -->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/post_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
+    <!-- Add Post Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_post_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:src="@drawable/baseline_add_box_24"/>
-
+            android:src="@drawable/baseline_add_box_24" />
 </LinearLayout>
