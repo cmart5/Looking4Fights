@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.looking4fight.MainActivity;
+import com.example.looking4fight.fragments.MainActivity;
 import com.example.looking4fight.R;
-import com.example.looking4fight.data.LoginRepository;
 import com.example.looking4fight.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
