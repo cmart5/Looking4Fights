@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-
         // Initialize Google Sign-In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)) // Web Client ID
@@ -52,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         SignInButton googleSignInButton = findViewById(R.id.google_sign_in);
         Button loginButton = findViewById(R.id.login);
         Button registerButton = findViewById(R.id.register);
+        Button forgotPasswordButton = findViewById(R.id.btn_forgot_password);
         ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         // Google Sign-In
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // **Login Button Click Listener**
         loginButton.setOnClickListener(v -> {
-            String email = binding.username.getText().toString().trim();
+            String email = binding.email.getText().toString().trim();
             String password = binding.password.getText().toString().trim();
 
             if (!email.isEmpty() && !password.isEmpty()) {
@@ -84,6 +84,12 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(v -> {
             // Navigate to RegisterActivity
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        });
+
+        // **Forgot Password Button Click Listener**
+        forgotPasswordButton.setOnClickListener(v -> {
+            PasswordResetDialog passwordResetDialog = new PasswordResetDialog();
+            passwordResetDialog.show(getSupportFragmentManager(), "Password Reset");
         });
     }
 

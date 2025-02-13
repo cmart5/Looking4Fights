@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
 
         // Initialize UI elements
         profileImage = view.findViewById(R.id.profile_image);
-        userName = view.findViewById(R.id.username);
+        userName = view.findViewById(R.id.email);
         userBio = view.findViewById(R.id.user_bio);
         postCount = view.findViewById(R.id.post_count);
         followerCount = view.findViewById(R.id.follower_count);
