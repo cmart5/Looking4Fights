@@ -79,7 +79,6 @@ public class ProfileFragment extends Fragment {
         editProfileButton = view.findViewById(R.id.edit_profile_button);
         addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
-
         userProfileManager = new UserProfileManager();
         setupAutoHighlight(view);
 
@@ -262,6 +261,29 @@ public class ProfileFragment extends Fragment {
                             .start();
                 })
                 .start();
+    }
+
+    private void setupAutoHighlight(View view) {
+        int[] editTextIds = {
+                R.id.edit_username,
+                R.id.edit_bio,
+                R.id.edit_height,
+                R.id.edit_weight,
+                R.id.edit_reach,
+                R.id.edit_location,
+                R.id.edit_gym
+        };
+        for (int editTextId : editTextIds) {
+            EditText editText = view.findViewById(editTextId);
+            if (editText != null) {
+                editText.setFocusable(true); //Ensure edit text is focusable
+                editText.setOnFocusChangeListener((v, hasFocus) -> { //use post to ensure 'selectall' is called
+                    if (hasFocus) {
+                        editText.post(editText::selectAll);
+                    }
+                });
+            }
+        }
     }
 
     private void setupAutoHighlight(View view) {
