@@ -60,8 +60,8 @@ public class ProfileFragment extends Fragment {
         editProfileButton = view.findViewById(R.id.edit_profile_button);
         addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
-
         userProfileManager = new UserProfileManager();
+        setupAutoHighlight(view);
 
         // Setup RecyclerView for user posts
         userPosts = new ArrayList<>();
@@ -79,11 +79,11 @@ public class ProfileFragment extends Fragment {
                 postCount.setText(String.valueOf(posts));
                 followerCount.setText(String.valueOf(followers));
                 followingCount.setText(String.valueOf(following));
-                userHeight.setText("Height: " + (height != null ? height : "N/A"));
-                userWeight.setText("Weight: " + (weight != null ? weight : "N/A"));
-                userReach.setText("Reach: " + (reach != null ? reach : "N/A"));
-                userLocation.setText("Location: " + (location != null ? location : "N/A"));
-                userGym.setText("Gym: " + (gym != null ? gym : "N/A"));
+                userHeight.setText((height != null ? height : "N/A"));
+                userWeight.setText((weight != null ? weight : "N/A"));
+                userReach.setText((reach != null ? reach : "N/A"));
+                userLocation.setText((location != null ? location : "N/A"));
+                userGym.setText((gym != null ? gym : "N/A"));
 
                 // Load profile image using Glide
                 if (profileImageUri != null && !profileImageUri.isEmpty()) {
@@ -113,6 +113,7 @@ public class ProfileFragment extends Fragment {
             // Inflate the dialog layout
             View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_profile, null);
             builder.setView(dialogView);
+            setupAutoHighlight(dialogView);
 
             EditText editUserName = dialogView.findViewById(R.id.edit_username);
             EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
@@ -167,6 +168,7 @@ public class ProfileFragment extends Fragment {
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             dialog.show();
         });
 
@@ -174,6 +176,29 @@ public class ProfileFragment extends Fragment {
         addPostButton.setOnClickListener(v -> openPostCreationDialog());
 
         return view;
+    }
+
+    private void setupAutoHighlight(View view) {
+        int[] editTextIds = {
+                R.id.edit_username,
+                R.id.edit_bio,
+                R.id.edit_height,
+                R.id.edit_weight,
+                R.id.edit_reach,
+                R.id.edit_location,
+                R.id.edit_gym
+        };
+        for (int editTextId : editTextIds) {
+            EditText editText = view.findViewById(editTextId);
+            if (editText != null) {
+                editText.setFocusable(true); //Ensure edit text is focusable
+                editText.setOnFocusChangeListener((v, hasFocus) -> { //use post to ensure 'selectall' is called
+                    if (hasFocus) {
+                        editText.post(editText::selectAll);
+                    }
+                });
+            }
+        }
     }
 
     // Open Image Picker for Profile Picture
