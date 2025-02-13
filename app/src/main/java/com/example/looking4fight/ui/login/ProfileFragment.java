@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -74,6 +79,7 @@ public class ProfileFragment extends Fragment {
         editProfileButton = view.findViewById(R.id.edit_profile_button);
         addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
+
         userProfileManager = new UserProfileManager();
         setupAutoHighlight(view);
 
@@ -108,12 +114,14 @@ public class ProfileFragment extends Fragment {
 
                 // Load profile image using Glide
                 if (profileImageUri != null && !profileImageUri.isEmpty()) {
+                    hasProfilePicture = true;
                     Glide.with(requireContext())
                             .load(profileImageUri)
                             .placeholder(R.drawable.loading_bar)
                             .error(R.drawable.error_image)
                             .into(profileImage);
                 } else {
+                    hasProfilePicture = false;
                     profileImage.setImageResource(R.drawable.default_profile);
                 }
             }
@@ -186,7 +194,7 @@ public class ProfileFragment extends Fragment {
                 });
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -372,6 +380,4 @@ public class ProfileFragment extends Fragment {
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         builder.create().show();
     }
-
-
 }

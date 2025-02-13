@@ -9,7 +9,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.firestore.CollectionReference;
@@ -106,6 +105,9 @@ public class UserProfileManager {
         });
     }
 
+
+
+
     // Create a new post
     public void createPost(String content, Uri mediaUri, PostCallback callback) {
         if (currentUser == null) {
@@ -116,7 +118,7 @@ public class UserProfileManager {
         Post newPost = new Post(
                 mediaUri != null ? mediaUri.toString() : null,
                 content,
-                currentUser.getDisplayName(), // Ensure display name is set in Firebase
+                currentUser.getDisplayName(),
                 0
         );
 
@@ -125,7 +127,7 @@ public class UserProfileManager {
                 .addOnFailureListener(callback::onFailure);
     }
 
-    // Fetch user posts
+    // Fetch user posts (no changes needed here)
     public void fetchUserPosts(UserPostsCallback callback) {
         if (currentUser == null) {
             callback.onFailure(new Exception("User not signed in"));
@@ -196,6 +198,9 @@ public class UserProfileManager {
         }
     }
 
+
+
+
     // Save user data to Firestore
     private void saveUserData(Map<String, Object> data, final UpdateCallback callback) {
         Log.d(TAG, "Saving data to Firestore: " + data);
@@ -210,4 +215,5 @@ public class UserProfileManager {
                     callback.onFailure(e);
                 });
     }
+
 }
