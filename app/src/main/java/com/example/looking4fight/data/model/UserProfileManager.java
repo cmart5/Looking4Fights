@@ -2,9 +2,6 @@ package com.example.looking4fight.data.model;
 
 import android.net.Uri;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -84,7 +81,7 @@ public class UserProfileManager {
     }
 
     // Create a new post
-    public void createPost(String content, Uri mediaUri, PostCallback callback) {
+    public void createPost(String content, String description, Uri mediaUri, PostCallback callback) {
         if (currentUser == null) {
             callback.onFailure(new Exception("User not signed in"));
             return;

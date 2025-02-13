@@ -5,8 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:padding="16dp"
-              android:background="@android:color/white"
-              tools:context=".ui.login.ProfileFragment">
+              android:background="@color/white">
 
     <!-- Profile Picture Container -->
     <FrameLayout
@@ -58,8 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Edit Profile"
-            android:backgroundTint="@android:color/black"
-            android:textColor="@android:color/white" />
+            android:backgroundTint="@color/white"
+            android:textColor="@android:color/black"/>
 
     <!-- Profile Stats -->
     <LinearLayout
@@ -166,6 +165,5 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:src="@drawable/baseline_add_box_24"/>
-<!--            android:backgroundTint="@color/primary"/>-->
 
 </LinearLayout>

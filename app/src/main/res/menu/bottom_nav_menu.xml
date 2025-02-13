@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.example.looking4fight.MainActivity">
+      tools:context="com.example.looking4fight.fragments.MainActivity">
     <item android:title="Home"
           android:icon="@drawable/baseline_home_24"
           android:id="@+id/home"/>
