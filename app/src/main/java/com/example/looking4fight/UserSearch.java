@@ -34,9 +34,9 @@ public class UserSearch {
                 } else {
                     int cost = (s1.charAt(i - 1) == s2.charAt(j - 1)) ? 0 : 1;
                     dp[i][j] = Math.min(Math.min(
-                                    dp[i - 1][j] + 1,        // Deletion
-                                    dp[i][j - 1] + 1),       // Insertion
-                            dp[i - 1][j - 1] + cost  // Substitution
+                                    dp[i - 1][j] + 1,  // Deletion
+                                    dp[i][j - 1] + 1), // Insertion
+                            dp[i - 1][j - 1] + cost    // Substitution
                     );
                 }
             }
@@ -44,13 +44,17 @@ public class UserSearch {
         return dp[s1.length()][s2.length()];
     }
 
-    // Search function to find users by name with optional date filter
+    // Implement Fuzzy Search
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<User> searchUsers(String query, LocalDate datePosted) {
-        query = query.toLowerCase();
-        String finalQuery = query;
+    public List<User> searchUsers(String query, LocalDate datePosted, int maxDistance) {
+        if (query == null || query.trim().isEmpty()) {
+            return new ArrayList<>(); // Return empty list if query is null or empty
+        }
+
+        String finalQuery = query.toLowerCase();
+
         return users.stream()
-                .filter(user -> user.getName().toLowerCase().contains(finalQuery))
+                .filter(user -> levenshteinDistance(user.getName().toLowerCase(), finalQuery) <= maxDistance)
                 .filter(user -> datePosted == null || user.getDatePosted().isEqual(datePosted) || user.getDatePosted().isAfter(datePosted))
                 .collect(Collectors.toList());
     }
@@ -59,12 +63,13 @@ public class UserSearch {
     public static void main(String[] args) {
         UserSearch userSearch = new UserSearch();
 
-        // Example search with a date filter
-        String searchQuery = "Em";
+        String searchQuery = "Emly Dvis"; // Intentional typo for testing
         LocalDate filterDate = LocalDate.of(2024, 1, 1); // Filter users posted on or after this date
-        List<User> foundUsers = userSearch.searchUsers(searchQuery, filterDate);
+        int maxDistance = 2; // Allow up to 2 character differences
 
-        // Example of displaying results
+        List<User> foundUsers = userSearch.searchUsers(searchQuery, filterDate, maxDistance);
+
+        // Display results
         if (foundUsers.isEmpty()) {
             System.out.println("No users found.");
         } else {
