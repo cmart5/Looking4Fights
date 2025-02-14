@@ -1,5 +1,7 @@
 package com.example.looking4fight.ui.login;
 
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.*;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,13 +9,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
+    private FrameLayout skeletonLayout;
+    private LinearLayout contentLayout;
+
     private ImageView profileImage;
     private TextView userName, userBio, postCount, followerCount, followingCount;
     private TextView userHeight, userWeight, userReach, userLocation, userGym;
@@ -44,6 +45,19 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profilefragment, container, false);
+
+        //Load skeleton view before content
+        skeletonLayout = view.findViewById(R.id.skeleton_layout);
+        contentLayout = view.findViewById(R.id.content_layout);
+
+        //Reset initial state of layouts
+            skeletonLayout.setVisibility(View.VISIBLE); // Show skeleton by default
+            skeletonLayout.setAlpha(1f); // Ensure skeleton is fully visible
+           skeletonLayout.setTranslationY(0f);
+
+        contentLayout.setVisibility(View.GONE); // Hide content by default
+        contentLayout.setAlpha(0f); // Ensure content starts invisible
+        contentLayout.setTranslationY(50f);
 
         // Initialize UI elements
         profileImage = view.findViewById(R.id.profile_image);
@@ -69,11 +83,18 @@ public class ProfileFragment extends Fragment {
         postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         postRecyclerView.setAdapter(postAdapter);
 
+        //Show skeleton while loading
+        showSkeleton();
+
         // Load User Profile
         userProfileManager.fetchUserProfile(new UserProfileManager.UserProfileCallback() {
             @Override
             public void onProfileLoaded(String name, String bio, String profileImageUri, long posts, long followers, long following,
                                         String height, String weight, String reach, String location, String gym) {
+
+                //hide skeleton and show content
+                hideSkeleton();
+
                 userName.setText(name != null ? name : "Unknown User");
                 userBio.setText(bio != null ? bio : "No bio available.");
                 postCount.setText(String.valueOf(posts));
@@ -176,6 +197,63 @@ public class ProfileFragment extends Fragment {
         addPostButton.setOnClickListener(v -> openPostCreationDialog());
 
         return view;
+    }
+    private boolean isAnimating = false;
+
+    private void showSkeleton() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        contentLayout.setAlpha(1f);
+        contentLayout.setTranslationY(0f);
+        skeletonLayout.setAlpha(0f);
+        skeletonLayout.setTranslationY(-50f);
+
+        contentLayout.animate()
+                .alpha(0f)
+                .translationY(50f)
+                .setDuration(800)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .withEndAction(() -> {
+                    contentLayout.setVisibility(View.GONE);
+                    skeletonLayout.setVisibility(View.VISIBLE);
+                    skeletonLayout.animate()
+                            .alpha(1f)
+                            .translationY(0f)
+                            .setDuration(800)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .withEndAction(() -> isAnimating = false)
+                            .start();
+                })
+                .start();
+    }
+
+    private void hideSkeleton() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        skeletonLayout.setAlpha(1f);
+        skeletonLayout.setTranslationY(0f);
+        contentLayout.setAlpha(0f);
+        contentLayout.setTranslationY(50f);
+
+        skeletonLayout.animate()
+                .alpha(0f)
+                .translationY(-50f)
+                .setDuration(800)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .withEndAction(() -> {
+                    skeletonLayout.setVisibility(View.GONE);
+                    contentLayout.setVisibility(View.VISIBLE);
+                    contentLayout.animate()
+                            .alpha(1f)
+                            .translationY(0f)
+                            .setDuration(800)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .withEndAction(() -> isAnimating = false)
+                            .start();
+                })
+                .start();
     }
 
     private void setupAutoHighlight(View view) {
@@ -294,4 +372,6 @@ public class ProfileFragment extends Fragment {
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         builder.create().show();
     }
+
+
 }
