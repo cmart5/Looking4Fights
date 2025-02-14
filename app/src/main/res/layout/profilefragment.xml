@@ -14,6 +14,23 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp">
 
+        <!-- Skeleton Placeholder -->
+        <FrameLayout
+                android:id="@+id/skeleton_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+            <include layout="@layout/skeleton_placeholder" />
+        </FrameLayout>
+
+        <!-- Actual Content Layout -->
+        <LinearLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"/>
+
         <!-- Profile Picture -->
     <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
@@ -148,6 +165,8 @@
 
     <!-- Fighter Stats Section -->
     <LinearLayout
+
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -162,6 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Height: N/A"
+                android:drawableLeft="@drawable/ic_height"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
@@ -172,6 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Weight: N/A"
+                android:drawableLeft="@drawable/ic_weight"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
@@ -182,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Reach: N/A"
+                android:drawableLeft="@drawable/ic_reach_resized"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
@@ -192,6 +214,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location: N/A"
+                android:drawableLeft="@drawable/ic_location"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
@@ -202,6 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gym: N/A"
+                android:drawableLeft="@drawable/ic_gym"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
