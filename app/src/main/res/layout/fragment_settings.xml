@@ -15,13 +15,13 @@
                 android:layout_height="wrap_content"
                 android:text="Notifications"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
         <Switch
                 android:id="@+id/switchNotifications"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enable Notifications" />
+                android:text="Enable Notifications"/>
 
         <!-- Theme -->
         <TextView
@@ -30,30 +30,32 @@
                 android:text="Theme"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"/>
 
-        <CheckBox
-                android:id="@+id/checkBoxDarkTheme"
+        <Switch
+                android:id="@+id/switchDarkTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dark Mode" />
-
-        <!-- Font Size -->
-
-        <!-- About App -->
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="About App"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:text="Dark Mode"/>
 
         <Button
                 android:id="@+id/buttonAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="About" />
+                android:backgroundTint="@color/primary"
+                android:text="About"/>
+        <Button
+                android:id="@+id/buttonSignOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/secondary"
+                android:text="Sign Out"/>
+        <Button
+                android:id="@+id/buttonDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/accent_dark"
+                android:text="Delete Account"/>
 
     </LinearLayout>
 

@@ -43,6 +43,10 @@ public class ExploreFragment extends Fragment
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2-column grid
 
+        // Initialize the adapter with an empty list and set it on the RecyclerView
+        exploreAdapter = new PostAdapter(new ArrayList<>());
+        recyclerView.setAdapter(exploreAdapter);
+
         ImageButton buttonOpenCreatePost = view.findViewById(R.id.buttonOpenCreatePost);
         buttonOpenCreatePost.setOnClickListener(v ->
         {
@@ -55,31 +59,38 @@ public class ExploreFragment extends Fragment
             transaction.addToBackStack(null); // Allows back navigation
             transaction.commit();
         });
-
-        fetchPosts();
     }
 
-    private void fetchPosts()
-    {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .addSnapshotListener((value, error) ->
-                {
-                    if (error != null)
-                    {
-                        Log.e("Firestore", "Failed to fetch posts", error);
-                        return;
-                    }
-
-                    List<Post> postList = new ArrayList<>();
-                    for (DocumentSnapshot doc : value.getDocuments())
-                    {
-                        Post post = doc.toObject(Post.class);
-                        postList.add(post);
-                    }
-
-                    exploreAdapter.setPosts(postList); // Update RecyclerView Adapter
-                });
-    }
+//    private void fetchPosts()
+//    {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection("posts")
+//                .orderBy("timestamp", Query.Direction.DESCENDING)
+//                .addSnapshotListener((value, error) ->
+//                {
+//                    if (error != null)
+//                    {
+//                        Log.e("Firestore", "Failed to fetch posts", error);
+//                        return;
+//                    }
+//
+//                    List<Post> postList = new ArrayList<>();
+//                    for (DocumentSnapshot doc : value.getDocuments())
+//                    {
+//                        Post post = doc.toObject(Post.class);
+//                        postList.add(post);
+//                    }
+//
+//                    if(exploreAdapter != null)
+//                    {
+//                        exploreAdapter.setPosts(postList);
+//                    }
+//                    else
+//                    {
+//                        Log.e("ExploreFragment", "Failed to fetch posts");
+//                    }
+//                });
+//
+//        fetchPosts();
+//    }
 }

@@ -154,12 +154,14 @@ public class ProfileFragment extends Fragment {
             if (!title.isEmpty() && !description.isEmpty()) {
                 userProfileManager.createPost(title, description, imageUri, new UserProfileManager.PostCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess()
+                    {
                         Toast.makeText(requireContext(), "Post added!", Toast.LENGTH_SHORT).show();
 //                        loadUserPosts();
                     }
                     @Override
-                    public void onFailure(Exception e) {
+                    public void onFailure(Exception e)
+                    {
                         Toast.makeText(requireContext(), "Failed to add post", Toast.LENGTH_SHORT).show();
                     }
                 });
