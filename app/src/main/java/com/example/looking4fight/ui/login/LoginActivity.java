@@ -39,8 +39,12 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         mAuth = FirebaseAuth.getInstance();
+
+        //auto signs in if user is already logged in
+        if (mAuth.getCurrentUser() != null) {
+            navigateToMainActivity(mAuth.getCurrentUser());
+        }
         // Initialize Google Sign-In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)) // Web Client ID
