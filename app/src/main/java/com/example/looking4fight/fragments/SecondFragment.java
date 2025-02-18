@@ -1,4 +1,4 @@
-package com.example.looking4fight.ui.login;
+package com.example.looking4fight.fragments;
 
 import android.content.Intent;
 import android.net.Uri;

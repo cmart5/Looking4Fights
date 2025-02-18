@@ -1,12 +1,12 @@
-package com.example.looking4fight;
+package com.example.looking4fight.fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.looking4fight.R;
 import com.example.looking4fight.databinding.ActivityMainBinding;
-import com.example.looking4fight.ui.login.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.looking4fight.MainActivity;
+import com.example.looking4fight.fragments.MainActivity;
 import com.example.looking4fight.R;
-import com.example.looking4fight.data.LoginRepository;
 import com.example.looking4fight.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -61,21 +60,28 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // **Login Button Click Listener**
-        loginButton.setOnClickListener(v -> {
+        loginButton.setOnClickListener(v ->
+        {
             String email = binding.username.getText().toString().trim();
             String password = binding.password.getText().toString().trim();
 
-            if (!email.isEmpty() && !password.isEmpty()) {
+            if (!email.isEmpty() && !password.isEmpty())
+            {
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, task -> {
-                            if (task.isSuccessful()) {
+                        .addOnCompleteListener(this, task ->
+                        {
+                            loadingProgressBar.setVisibility(View.GONE);
+                            if (task.isSuccessful())
+                            {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 navigateToMainActivity(user);
-                            } else {
+                            } else
+                            {
                                 Toast.makeText(LoginActivity.this, "Login failed. Check credentials.", Toast.LENGTH_SHORT).show();
                             }
                         });
-            } else {
+            } else
+            {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             }
         });
@@ -96,11 +102,14 @@ public class LoginActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
+                .addOnCompleteListener(this, task ->
+                {
+                    if (task.isSuccessful())
+                    {
                         FirebaseUser user = mAuth.getCurrentUser();
                         navigateToMainActivity(user);
-                    } else {
+                    } else
+                    {
                         Toast.makeText(LoginActivity.this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -126,7 +135,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Navigate to Main Activity after successful login
-    private void navigateToMainActivity(FirebaseUser user) {
+    private void navigateToMainActivity(FirebaseUser user)
+    {
         Toast.makeText(this, "Welcome " + (user != null ? user.getDisplayName() : "User"), Toast.LENGTH_SHORT).show();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();

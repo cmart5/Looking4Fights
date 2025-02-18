@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+    <!-- Title Input -->
+    <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter title"
+            android:padding="8dp"
+            android:background="@android:drawable/editbox_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="75dp"/>
+
+    <!-- Description Input -->
+    <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter description"
+            android:padding="8dp"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="top"
+            android:minLines="3"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"/>
+
+    <!-- Media Preview (Image/Video) -->
+    <ImageView
+            android:id="@+id/mediaPreview"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Media preview"
+            app:layout_constraintTop_toBottomOf="@id/editTextDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"/>
+
+    <!-- Upload Media Button -->
+    <Button
+            android:id="@+id/buttonUploadMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Media"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mediaPreview"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"/>
+
+    <!-- Submit Post Button -->
+    <Button
+            android:id="@+id/buttonSubmitPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonUploadMedia"
+            app:layout_constraintTop_toBottomOf="@id/mediaPreview"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"/>
+
+    <!-- Close Button (ImageButton) -->
+    <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_close_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

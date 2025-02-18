@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/FirstFragment"
-            android:name="com.example.looking4fight.ExploreFragment"
+            android:name="com.example.looking4fight.fragments.ExploreFragment"
             android:label="First Fragment"
             tools:layout="@layout/fragment_settings" />
     <!-- Other fragments would be defined here -->
