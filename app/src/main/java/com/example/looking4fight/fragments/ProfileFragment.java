@@ -1,5 +1,6 @@
 package com.example.looking4fight.fragments;
 
+import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.*;
 import android.app.AlertDialog;
@@ -72,7 +73,7 @@ public class ProfileFragment extends Fragment {
         userLocation = view.findViewById(R.id.user_location);
         userGym = view.findViewById(R.id.user_gym);
         editProfileButton = view.findViewById(R.id.edit_profile_button);
-        addPostButton = view.findViewById(R.id.add_post_button);
+//        addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
         userProfileManager = new UserProfileManager();
         setupAutoHighlight(view);
@@ -85,6 +86,8 @@ public class ProfileFragment extends Fragment {
 
         //Show skeleton while loading
         showSkeleton();
+        //Load user posts from firestore
+        loadUserPosts();
 
         // Load User Profile
         userProfileManager.fetchUserProfile(new UserProfileManager.UserProfileCallback() {
@@ -118,10 +121,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-
-        // Load only the user's posts
-        loadUserPosts();
 
         // Make Profile Image Clickable for Upload
         profileImage.setOnClickListener(v -> openGallery());
@@ -329,6 +328,7 @@ public class ProfileFragment extends Fragment {
         userProfileManager.fetchUserPosts(new UserProfileManager.UserPostsCallback() {
             @Override
             public void onPostsLoaded(List<Post> posts) {
+                Log.d("ProfileFragment", "Fetched " + posts.size() + " posts");
                 userPosts.clear();
                 userPosts.addAll(posts);
                 postAdapter.notifyDataSetChanged();

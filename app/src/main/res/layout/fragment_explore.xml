@@ -22,12 +22,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/searchView" android:layout_marginTop="25dp"/>
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/baseline_add_box_24"
-            android:id="@+id/buttonOpenCreatePost"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            android:layout_marginTop="25dp" app:layout_constraintStart_toEndOf="@+id/searchView"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

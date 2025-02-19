@@ -116,10 +116,11 @@ public class UserProfileManager {
         }
 
         Post newPost = new Post(
-                mediaUri != null ? mediaUri.toString() : null,
+                mediaUri != null ? mediaUri.toString() : "", // Ensure mediaUrl is not null
+                "Untitled Post", // Provide a default title if missing
                 content,
-                currentUser.getDisplayName(),
-                0
+                currentUser.getUid(), // Use UID instead of displayName for consistency
+                System.currentTimeMillis() // Add a timestamp
         );
 
         postsCollection.add(newPost)
