@@ -192,9 +192,6 @@ public class ProfileFragment extends Fragment {
             dialog.show();
         });
 
-        // Add Post Button Click
-        //addPostButton.setOnClickListener(v -> openPostCreationDialog());
-
         return view;
     }
     private boolean isAnimating = false;
@@ -340,38 +337,5 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
-    // Open dialog to create a new post
-//    private void openPostCreationDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-//        builder.setTitle("Create New Post");
-//
-//        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_post, null);
-//        builder.setView(dialogView);
-//
-//        EditText postContent = dialogView.findViewById(R.id.edit_post_content);
-//
-//        builder.setPositiveButton("Post", (dialog, which) -> {
-//            String content = postContent.getText().toString().trim();
-//            if (!content.isEmpty()) {
-//                userProfileManager.createPost(content, null, new UserProfileManager.PostCallback() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Toast.makeText(requireContext(), "Post added!", Toast.LENGTH_SHORT).show();
-//                        loadUserPosts();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Exception e) {
-//                        Toast.makeText(requireContext(), "Failed to add post", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        });
-//
-//        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-//        builder.create().show();
-//    }
-
 
 }

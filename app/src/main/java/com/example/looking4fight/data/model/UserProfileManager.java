@@ -128,7 +128,7 @@ public class UserProfileManager {
                 .addOnFailureListener(callback::onFailure);
     }
 
-    // Fetch user posts (no changes needed here)
+    // Fetch user posts
     public void fetchUserPosts(UserPostsCallback callback) {
         if (currentUser == null) {
             callback.onFailure(new Exception("User not signed in"));
@@ -148,7 +148,7 @@ public class UserProfileManager {
                 .addOnFailureListener(callback::onFailure);
     }
 
-    // Update profile details, including the new fields
+    // Update profile details
     public void updateProfile(String name, String bio, Uri profileImageUri, String height, String weight, String reach,
                               String location, String gym, final UpdateCallback callback) {
         if (currentUser == null) {
