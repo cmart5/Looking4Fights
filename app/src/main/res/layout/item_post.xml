@@ -6,7 +6,7 @@
 
     <!-- Username -->
     <TextView
-            android:id="@+id/post_user_id"
+            android:id="@+id/post_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
@@ -14,7 +14,8 @@
             android:textSize="16sp"
             android:paddingBottom="4dp"/>
 
-    <!-- Post Title (Newly Added) -->
+
+    <!-- Post Title  -->
     <TextView
             android:id="@+id/post_title"
             android:layout_width="wrap_content"

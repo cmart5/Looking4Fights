@@ -1,6 +1,7 @@
 package com.example.looking4fight.data.model;
 
 public class Post {
+    private String name; // Matches Firestore field
     private String mediaUrl; // Matches Firestore field
     private String title; // Matches Firestore field
     private String description; // Matches Firestore field

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -22,6 +23,11 @@ import com.example.looking4fight.data.model.UserProfileManager;
 import com.example.looking4fight.data.model.Post;
 import com.example.looking4fight.ui.login.adapter.ProfilePostAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +39,7 @@ public class ProfileFragment extends Fragment {
     private TextView userName, userBio, postCount, followerCount, followingCount;
     private TextView userHeight, userWeight, userReach, userLocation, userGym;
     private Button editProfileButton;
-    private FloatingActionButton addPostButton;
+
     private RecyclerView postRecyclerView;
     private ProfilePostAdapter postAdapter;
     private List<Post> userPosts;
@@ -81,7 +87,8 @@ public class ProfileFragment extends Fragment {
         // Setup RecyclerView for user posts
         userPosts = new ArrayList<>();
         postAdapter = new ProfilePostAdapter(userPosts);
-        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        postRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // 3 columns
+        postRecyclerView.addItemDecoration(new GridSpacing(10));
         postRecyclerView.setAdapter(postAdapter);
 
         //Show skeleton while loading
@@ -194,6 +201,7 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
+
     private boolean isAnimating = false;
 
     private void showSkeleton() {
@@ -322,20 +330,33 @@ public class ProfileFragment extends Fragment {
 
     // Load user posts
     private void loadUserPosts() {
-        userProfileManager.fetchUserPosts(new UserProfileManager.UserPostsCallback() {
-            @Override
-            public void onPostsLoaded(List<Post> posts) {
-                Log.d("ProfileFragment", "Fetched " + posts.size() + " posts");
-                userPosts.clear();
-                userPosts.addAll(posts);
-                postAdapter.notifyDataSetChanged();
-            }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
-            @Override
-            public void onFailure(Exception e) {
-                e.printStackTrace();
-            }
-        });
+        String currentUserId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
+
+        db.collection("posts")
+                .whereEqualTo("userId", currentUserId)  // Fetch only this user's posts
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e("ProfileFragment", "Failed to fetch user posts", error);
+                        return;
+                    }
+
+                    List<Post> postList = new ArrayList<>();
+                    for (DocumentSnapshot doc : value.getDocuments()) {
+                        Post post = doc.toObject(Post.class);
+                        postList.add(post);
+                    }
+
+                    // Ensure adapter is not null before updating UI
+                    if (postAdapter != null) {
+                        postAdapter.setPosts(postList);
+                    } else {
+                        Log.e("ProfileFragment", "postAdapter is null, cannot update posts");
+                    }
+                });
     }
-
 }
+

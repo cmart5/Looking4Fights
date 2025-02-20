@@ -1,67 +1,82 @@
 package com.example.looking4fight.fragments;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.looking4fight.R;
 import com.example.looking4fight.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
-    private FloatingActionButton fabCreatePost;
+    private ActivityMainBinding binding;
+
+    // Initialize fragments
+    private final Fragment exploreFragment = new ExploreFragment();
+    private final Fragment profileFragment = new ProfileFragment();
+    private final Fragment settingsFragment = new SettingsFragment();
+    private final Fragment createPostFragment = new CreatePostFragment();
+    private Fragment activeFragment = exploreFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize Floating Action Button
-        fabCreatePost = findViewById(R.id.fab_create_post);
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
+        // Load fragments only if first launch
         if (savedInstanceState == null) {
-            replaceFragment(new ExploreFragment()); //Prevent reloading
+            fragmentManager.beginTransaction()
+                    .add(R.id.frameLayout, exploreFragment, "explore").commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.frameLayout, profileFragment, "profile").hide(profileFragment).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.frameLayout, settingsFragment, "settings").hide(settingsFragment).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.frameLayout, createPostFragment, "createPost").hide(createPostFragment).commit();
+        } else {
+            // Restore active fragment after configuration change
+            activeFragment = fragmentManager.findFragmentByTag(savedInstanceState.getString("activeFragment"));
         }
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item ->
-        {
+        // Set up bottom navigation
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
 
             if (item.getItemId() == R.id.home) {
-                replaceFragment(new ExploreFragment());
+                selectedFragment = exploreFragment;
             } else if (item.getItemId() == R.id.profile) {
-                replaceFragment(new ProfileFragment());
+                selectedFragment = profileFragment;
             } else if (item.getItemId() == R.id.settings) {
-                replaceFragment(new SettingsFragment());
+                selectedFragment = settingsFragment;
+            } else if (item.getItemId() == R.id.createPost) {
+                selectedFragment = createPostFragment;
+            }
+
+            if (selectedFragment != null) {
+                switchFragment(selectedFragment);
             }
 
             return true;
         });
-        // Handle Floating Action Button Click
-        fabCreatePost.setOnClickListener(v -> openCreatePostDialog());
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frameLayout);
-
-        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
-            return; // Avoid unnecessary fragment reload
+    private void switchFragment(Fragment fragment) {
+        if (fragment != activeFragment) {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(activeFragment)
+                    .show(fragment)
+                    .commit();
+            activeFragment = fragment;
         }
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
     }
 
-    private void openCreatePostDialog() {
-        CreatePostFragment createPostFragment = CreatePostFragment.newInstance();
-        createPostFragment.show(getSupportFragmentManager(), "CreatePostFragment");
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("activeFragment", activeFragment.getTag());
     }
 }

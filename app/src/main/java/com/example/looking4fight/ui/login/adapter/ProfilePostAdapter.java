@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.looking4fight.R;
 import com.example.looking4fight.data.model.Post;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -30,12 +32,48 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = userPosts.get(position);
-        holder.postText.setText(post.getTitle());
+
+        // Null-check before setting values
+        if (post.getTitle() != null) {
+            holder.postTitle.setText(post.getTitle());
+        } else {
+            holder.postTitle.setText("No Title");
+        }
+
+        if (post.getDescription() != null) {
+            holder.postCaption.setText(post.getDescription());
+        } else {
+            holder.postCaption.setText("No caption available.");
+        }
+
+        // Set default username text
+        holder.postUsername.setText("Loading...");
+
+        if (post.getUserId() != null) {
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection("users").document(post.getUserId());
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists() && documentSnapshot.getString("name") != null) {
+                    holder.postUsername.setText(documentSnapshot.getString("name"));
+                } else {
+                    holder.postUsername.setText("Unknown User");
+                }
+            }).addOnFailureListener(e -> holder.postUsername.setText("Error"));
+        } else {
+            holder.postUsername.setText("Unknown User");
+        }
 
         // Load image if exists
         if (post.getMediaUrl() != null && !post.getMediaUrl().isEmpty()) {
             Glide.with(holder.postImage.getContext()).load(post.getMediaUrl()).into(holder.postImage);
+        } else {
+            holder.postImage.setImageResource(R.drawable.default_profile); // Fallback image
         }
+    }
+
+    public void setPosts(List<Post> newPosts) {
+        this.userPosts.clear();
+        this.userPosts.addAll(newPosts);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -44,12 +82,14 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView postText;
+        TextView postTitle, postCaption, postUsername;
         ImageView postImage;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            postText = itemView.findViewById(R.id.post_caption);
+            postTitle = itemView.findViewById(R.id.post_title);
+            postCaption = itemView.findViewById(R.id.post_caption);
+            postUsername = itemView.findViewById(R.id.post_username);
             postImage = itemView.findViewById(R.id.post_image);
         }
     }
