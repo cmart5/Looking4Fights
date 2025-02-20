@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment exploreFragment = new ExploreFragment();
     private final Fragment profileFragment = new ProfileFragment();
     private final Fragment settingsFragment = new SettingsFragment();
-    private final Fragment createPostFragment = new CreatePostFragment();
+
     private Fragment activeFragment = exploreFragment;
 
     @Override
@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.frameLayout, profileFragment, "profile").hide(profileFragment).commit();
             fragmentManager.beginTransaction()
                     .add(R.id.frameLayout, settingsFragment, "settings").hide(settingsFragment).commit();
-            fragmentManager.beginTransaction()
-                    .add(R.id.frameLayout, createPostFragment, "createPost").hide(createPostFragment).commit();
         } else {
             // Restore active fragment after configuration change
             activeFragment = fragmentManager.findFragmentByTag(savedInstanceState.getString("activeFragment"));
@@ -44,24 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up bottom navigation
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-
-            if (item.getItemId() == R.id.home) {
-                selectedFragment = exploreFragment;
-            } else if (item.getItemId() == R.id.profile) {
-                selectedFragment = profileFragment;
-            } else if (item.getItemId() == R.id.settings) {
-                selectedFragment = settingsFragment;
-            } else if (item.getItemId() == R.id.createPost) {
-                selectedFragment = createPostFragment;
+            if (item.getItemId() == R.id.createPost) {
+                openCreatePostDialog(); // Open modal dialog
+            } else {
+                switchFragment(getSelectedFragment(item.getItemId()));
             }
-
-            if (selectedFragment != null) {
-                switchFragment(selectedFragment);
-            }
-
             return true;
         });
+    }
+
+    private Fragment getSelectedFragment(int itemId) {
+        if (itemId == R.id.home) return exploreFragment;
+        if (itemId == R.id.profile) return profileFragment;
+        if (itemId == R.id.settings) return settingsFragment;
+        return exploreFragment; // Default
     }
 
     private void switchFragment(Fragment fragment) {
@@ -72,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             activeFragment = fragment;
         }
+    }
+
+    private void openCreatePostDialog() {
+        CreatePostDialogFragment createPostDialog = new CreatePostDialogFragment();
+        createPostDialog.show(getSupportFragmentManager(), "CreatePostDialog");
     }
 
     @Override

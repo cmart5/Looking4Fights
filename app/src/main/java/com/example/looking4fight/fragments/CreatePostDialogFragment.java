@@ -2,6 +2,7 @@ package com.example.looking4fight.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,25 +24,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class CreatePostFragment extends DialogFragment {
+public class CreatePostDialogFragment extends DialogFragment {
 
     private ActivityResultLauncher<Intent> galleryLauncher;
     private ImageView mediaPreview;
-    private Button buttonSubmitPost;
     private EditText titleInput, descriptionInput;
     private Uri selectedMediaUri;
 
-    public static CreatePostFragment newInstance() {
-        return new CreatePostFragment();
+    public static CreatePostDialogFragment newInstance() {
+        return new CreatePostDialogFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CustomDialogStyle);
 
         galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -60,7 +60,14 @@ public class CreatePostFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_create_post, container, false);
+        View view = inflater.inflate(R.layout.dialog_create_post, container, false);
+
+        // Make background transparent
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        return view;
     }
 
     @Override
@@ -71,10 +78,11 @@ public class CreatePostFragment extends DialogFragment {
         titleInput = view.findViewById(R.id.editTextTitle);
         descriptionInput = view.findViewById(R.id.editTextDescription);
         Button buttonUploadMedia = view.findViewById(R.id.buttonUploadMedia);
-        buttonSubmitPost = view.findViewById(R.id.buttonSubmitPost);
+        Button buttonSubmitPost = view.findViewById(R.id.buttonSubmitPost);
 
         buttonUploadMedia.setOnClickListener(v -> openGallery());
 
+        // Close button now properly dismisses the dialog
         ImageButton closeButton = view.findViewById(R.id.imageButton);
         closeButton.setOnClickListener(v -> dismiss());
 
@@ -116,10 +124,7 @@ public class CreatePostFragment extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        // Get current timestamp in milliseconds
         long timestampMillis = System.currentTimeMillis();
-
-        // Convert timestamp to a formatted date string (e.g., "18-Feb-2025 15:31:38")
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault());
         String formattedDate = sdf.format(new Date(timestampMillis));
 
@@ -128,13 +133,11 @@ public class CreatePostFragment extends DialogFragment {
         post.put("title", title);
         post.put("description", description);
         post.put("userId", auth.getUid());
-        post.put("timestampMillis", timestampMillis);  // Keep the original timestamp
-        post.put("timestampFormatted", formattedDate); // Store human-readable date
+        post.put("timestampMillis", timestampMillis);
+        post.put("timestampFormatted", formattedDate);
 
         db.collection("posts").add(post)
                 .addOnSuccessListener(documentReference -> dismiss())
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Failed to save post", Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to save post", Toast.LENGTH_SHORT).show());
     }
 }
