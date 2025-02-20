@@ -38,8 +38,8 @@
     <!-- Media Preview (Image/Video) -->
     <ImageView
             android:id="@+id/mediaPreview"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_width="414dp"
+            android:layout_height="401dp"
             android:scaleType="centerCrop"
             android:background="@android:color/darker_gray"
             android:contentDescription="Media preview"
@@ -54,10 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload Media"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mediaPreview"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/buttonSubmitPost"/>
 
     <!-- Submit Post Button -->
     <Button
@@ -65,11 +64,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit Post"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/buttonUploadMedia"
             app:layout_constraintTop_toBottomOf="@id/mediaPreview"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Close Button (ImageButton) -->
     <ImageButton

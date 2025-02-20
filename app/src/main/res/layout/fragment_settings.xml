@@ -10,12 +10,6 @@
             android:orientation="vertical">
 
         <!-- Notifications -->
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
 
         <Switch
                 android:id="@+id/switchNotifications"
@@ -24,14 +18,12 @@
                 android:text="Enable Notifications"/>
 
         <!-- Theme -->
-        <TextView
+
+        <Switch
+                android:text="Profile Privacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Theme"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
-
+                android:id="@+id/PrivacySwitch"/>
         <Switch
                 android:id="@+id/switchDarkTheme"
                 android:layout_width="match_parent"

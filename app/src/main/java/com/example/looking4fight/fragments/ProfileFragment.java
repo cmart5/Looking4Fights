@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
         followerCount = view.findViewById(R.id.follower_count);
         followingCount = view.findViewById(R.id.following_count);
         editProfileButton = view.findViewById(R.id.edit_profile_button);
-        addPostButton = view.findViewById(R.id.add_post_button);
+//        addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
 
         userProfileManager = new UserProfileManager();

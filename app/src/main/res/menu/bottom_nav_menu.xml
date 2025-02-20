@@ -5,6 +5,12 @@
     <item android:title="Home"
           android:icon="@drawable/baseline_home_24"
           android:id="@+id/home"/>
+    <item android:title="Events"
+          android:icon="@drawable/baseline_add_location_24"
+          android:id="@+id/events"/>
+    <item android:title="Create Post"
+          android:icon="@drawable/baseline_add_box_32"
+          android:id="@+id/createPost"/>
     <item android:title="Profile"
           android:icon="@drawable/baseline_account_box_24"
           android:id="@+id/profile"/>
