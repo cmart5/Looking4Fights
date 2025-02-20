@@ -82,5 +82,7 @@ dependencies {
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 }
 

@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize Floating Action Button
-        fabCreatePost = findViewById(R.id.fab_create_post);
-
         if (savedInstanceState == null) {
             replaceFragment(new ExploreFragment()); //Prevent reloading
         }
@@ -33,25 +30,36 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->
         {
 
-            if (item.getItemId() == R.id.home) {
+            if (item.getItemId() == R.id.home)
+            {
                 replaceFragment(new ExploreFragment());
-            } else if (item.getItemId() == R.id.profile) {
+            }
+            else if (item.getItemId() == R.id.profile)
+            {
                 replaceFragment(new ProfileFragment());
-            } else if (item.getItemId() == R.id.settings) {
+            }
+            else if (item.getItemId() == R.id.settings)
+            {
                 replaceFragment(new SettingsFragment());
             }
-
+            else if (item.getItemId() == R.id.createPost)
+            {
+                replaceFragment(new CreatePostFragment());
+            }
+            else if (item.getItemId() == R.id.events)
+            {
+                replaceFragment(new EventsFragment());
+            }
             return true;
         });
-        // Handle Floating Action Button Click
-        fabCreatePost.setOnClickListener(v -> openCreatePostDialog());
     }
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.frameLayout);
 
-        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
+        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass()))
+        {
             return; // Avoid unnecessary fragment reload
         }
 
@@ -60,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void openCreatePostDialog() {
+    private void openCreatePostDialog()
+    {
         CreatePostFragment createPostFragment = CreatePostFragment.newInstance();
         createPostFragment.show(getSupportFragmentManager(), "CreatePostFragment");
     }

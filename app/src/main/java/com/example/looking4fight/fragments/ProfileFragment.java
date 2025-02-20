@@ -178,7 +178,8 @@ public class ProfileFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Exception e) {
+                    public void onFailure(Exception e)
+                    {
                         e.printStackTrace();
                         Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
                     }
