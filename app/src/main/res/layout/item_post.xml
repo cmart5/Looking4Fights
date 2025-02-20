@@ -4,8 +4,9 @@
               android:orientation="vertical"
               android:padding="10dp">
 
+    <!-- Username -->
     <TextView
-            android:id="@+id/post_username"
+            android:id="@+id/post_user_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
@@ -13,12 +14,24 @@
             android:textSize="16sp"
             android:paddingBottom="4dp"/>
 
+    <!-- Post Title (Newly Added) -->
+    <TextView
+            android:id="@+id/post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post Title"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:paddingBottom="4dp"/>
+
+    <!-- Post Image -->
     <ImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"/>
 
+    <!-- Likes -->
     <TextView
             android:id="@+id/post_likes"
             android:layout_width="wrap_content"
@@ -27,6 +40,7 @@
             android:textSize="14sp"
             android:paddingTop="4dp"/>
 
+    <!-- Caption -->
     <TextView
             android:id="@+id/post_caption"
             android:layout_width="wrap_content"

@@ -30,11 +30,11 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = userPosts.get(position);
-        holder.postText.setText(post.getText());
+        holder.postText.setText(post.getTitle());
 
         // Load image if exists
-        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
-            Glide.with(holder.postImage.getContext()).load(post.getImageUrl()).into(holder.postImage);
+        if (post.getMediaUrl() != null && !post.getMediaUrl().isEmpty()) {
+            Glide.with(holder.postImage.getContext()).load(post.getMediaUrl()).into(holder.postImage);
         }
     }
 
