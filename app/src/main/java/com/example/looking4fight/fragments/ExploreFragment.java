@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,9 +26,11 @@ import java.util.List;
 
 public class ExploreFragment extends Fragment
 {
-
+    private SearchView searchView;
     private RecyclerView recyclerView;
     private PostAdapter exploreAdapter;
+
+    List<Post> postList = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,21 @@ public class ExploreFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        searchView = view.findViewById(R.id.searchView);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                filterList(query);
+                return true;
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2-column grid
@@ -65,7 +83,6 @@ public class ExploreFragment extends Fragment
                         return;
                     }
 
-                    List<Post> postList = new ArrayList<>();
                     for (DocumentSnapshot doc : value.getDocuments())
                     {
                         Post post = doc.toObject(Post.class);
@@ -81,5 +98,15 @@ public class ExploreFragment extends Fragment
                         Log.e("ExploreFragment", "Adapter is null, cannot update posts");
                     }
                 });
+    }
+
+    private void filterList(String searchQuery) {
+        List<Post> filteredList = new ArrayList<>();
+        for(Post post : postList) {
+            if(post.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(post);
+            }
+        }
+        exploreAdapter.setPosts(filteredList);
     }
 }
