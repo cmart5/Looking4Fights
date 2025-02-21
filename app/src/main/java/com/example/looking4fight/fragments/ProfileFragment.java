@@ -338,7 +338,7 @@ public class ProfileFragment extends Fragment {
 
         db.collection("posts")
                 .whereEqualTo("userId", currentUserId)  // Fetch only this user's posts
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                //.orderBy("timestampMillis", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         Log.e("ProfileFragment", "Failed to fetch user posts", error);

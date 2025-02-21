@@ -1,6 +1,7 @@
 package com.example.looking4fight.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -137,7 +138,19 @@ public class CreatePostDialogFragment extends DialogFragment {
         post.put("timestampFormatted", formattedDate);
 
         db.collection("posts").add(post)
-                .addOnSuccessListener(documentReference -> dismiss())
+                .addOnSuccessListener(documentReference -> {
+                    showSuccessDialog();
+                    dismiss(); // ✅ Close dialog after success
+                })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to save post", Toast.LENGTH_SHORT).show());
+
     }
+    private void showSuccessDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Success")
+                .setMessage("Your post has been uploaded successfully!")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 }

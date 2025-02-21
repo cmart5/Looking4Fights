@@ -56,7 +56,7 @@ public class ExploreFragment extends Fragment
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("posts")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .orderBy("timestampMillis", Query.Direction.DESCENDING)
                 .addSnapshotListener((QuerySnapshot value, FirebaseFirestoreException error) ->
                 {
                     if (error != null)
