@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.looking4fight.R;
+import com.example.looking4fight.SettingsFragment;
 import com.example.looking4fight.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

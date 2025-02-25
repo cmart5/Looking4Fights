@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         // **Login Button Click Listener**
         loginButton.setOnClickListener(v ->
         {
-            String email = binding.username.getText().toString().trim();
+            String email = binding.email.getText().toString().trim();
             String password = binding.password.getText().toString().trim();
 
             if (!email.isEmpty() && !password.isEmpty())

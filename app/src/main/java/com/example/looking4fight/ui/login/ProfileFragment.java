@@ -52,7 +52,7 @@ public class ProfileFragment extends Fragment {
         followerCount = view.findViewById(R.id.follower_count);
         followingCount = view.findViewById(R.id.following_count);
         editProfileButton = view.findViewById(R.id.edit_profile_button);
-        addPostButton = view.findViewById(R.id.add_post_button);
+        //addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
 
         userProfileManager = new UserProfileManager();
@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
         // Load User Profile
         userProfileManager.fetchUserProfile(new UserProfileManager.UserProfileCallback() {
             @Override
-            public void onProfileLoaded(String name, String bio, String profileImageUri, long posts, long followers, long following) {
+            public void onProfileLoaded(String name, String bio, String profileImageURL, long posts, long followers, long following, String height, String weight, String reach, String location, String gym) {
                 userName.setText(name);
                 userBio.setText(bio);
                 postCount.setText(String.valueOf(posts));
@@ -74,10 +74,10 @@ public class ProfileFragment extends Fragment {
                 followingCount.setText(String.valueOf(following));
 
                 // Load profile image using Glide
-                if (profileImageUri != null && !profileImageUri.isEmpty()) {
+                if (profileImageURL != null && !profileImageURL.isEmpty()) {
                     hasProfilePicture = true;
                     Glide.with(requireContext())
-                            .load(profileImageUri)
+                            .load(profileImageURL)
                             .placeholder(R.drawable.loading_bar)
                             .error(R.drawable.error_image)
                             .into(profileImage);
