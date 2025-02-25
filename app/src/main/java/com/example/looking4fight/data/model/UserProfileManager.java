@@ -3,21 +3,19 @@ package com.example.looking4fight.data.model;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import java.util.ArrayList;
+import com.google.firebase.firestore.CollectionReference;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class UserProfileManager {
     private static final String TAG = "UserProfileManager";
@@ -33,7 +31,9 @@ public class UserProfileManager {
         storage = FirebaseStorage.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
+        if (currentUser == null) {
+            Log.w(TAG, "Current user is null. Authentication may have failed.");
+        } else {
             postsCollection = db.collection("posts");
         }
     }
@@ -49,7 +49,9 @@ public class UserProfileManager {
     }
 
     public interface UserProfileCallback {
-        void onProfileLoaded(String name, String bio, String profileImage, long posts, long followers, long following);
+        void onProfileLoaded(String name, String bio, String profileImage, long posts, long followers, long following,
+                             String height, String weight, String reach, String location, String gym);
+
     }
 
     public interface UpdateCallback {
@@ -57,31 +59,54 @@ public class UserProfileManager {
         void onFailure(Exception e);
     }
 
-    // Fetch user profile details
+    // Fetch user profile details, including the new fields
     public void fetchUserProfile(final UserProfileCallback callback) {
-        if (currentUser == null) return;
+        if (currentUser == null) {
+            Log.e(TAG, "Current user is null. Cannot fetch profile.");
+            return;
+        }
 
-        DocumentReference userRef = db.collection("users").document(currentUser.getUid());
+        String userId = currentUser.getUid();
+        Log.d(TAG, "Fetching profile for UID: " + userId);
+
+        DocumentReference userRef = db.collection("users").document(userId);
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    String name = document.getString("name");
-                    String bio = document.getString("bio");
-                    String profileImage = document.getString("profileImage");
+                    Log.d(TAG, "Document data: " + document.getData());
+
+                    // Retrieve all fields with fallback values
+                    String name = document.getString("name") != null ? document.getString("name") : "Unknown User";
+                    String bio = document.getString("bio") != null ? document.getString("bio") : "No bio available.";
+                    String profileImage = document.getString("profileImage") != null ? document.getString("profileImage") : "";
                     long posts = document.getLong("posts") != null ? document.getLong("posts") : 0;
                     long followers = document.getLong("followers") != null ? document.getLong("followers") : 0;
                     long following = document.getLong("following") != null ? document.getLong("following") : 0;
+                    String height = document.getString("height") != null ? document.getString("height") : "N/A";
+                    String weight = document.getString("weight") != null ? document.getString("weight") : "N/A";
+                    String reach = document.getString("reach") != null ? document.getString("reach") : "N/A";
+                    String location = document.getString("location") != null ? document.getString("location") : "N/A";
+                    String gym = document.getString("gym") != null ? document.getString("gym") : "N/A";
 
-                    callback.onProfileLoaded(name, bio, profileImage, posts, followers, following);
+                    // Trigger callback with retrieved data
+                    callback.onProfileLoaded(name, bio, profileImage, posts, followers, following, height, weight, reach, location, gym);
+
+                    Log.d(TAG, "User profile successfully loaded.");
                 } else {
-                    Log.d(TAG, "No such document");
+                    Log.d(TAG, "No document found for UID: " + userId);
+                    callback.onProfileLoaded(
+                            "Unknown User", "No bio available.", "", 0, 0, 0, "N/A", "N/A", "N/A", "N/A", "N/A"
+                    );
                 }
             } else {
-                Log.w(TAG, "Error getting document", task.getException());
+                Log.e(TAG, "Error fetching document: ", task.getException());
             }
         });
     }
+
+
+
 
     // Create a new post
     public void createPost(String content, Uri mediaUri, PostCallback callback) {
@@ -91,10 +116,11 @@ public class UserProfileManager {
         }
 
         Post newPost = new Post(
-                mediaUri != null ? mediaUri.toString() : null,
+                mediaUri != null ? mediaUri.toString() : "", // Ensure mediaUrl is not null
+                "Untitled Post", // Provide a default title if missing
                 content,
-                currentUser.getDisplayName(), // Ensure display name is set in Firebase
-                0
+                currentUser.getUid(), // Use UID instead of displayName for consistency
+                System.currentTimeMillis() // Add a timestamp
         );
 
         postsCollection.add(newPost)
@@ -109,7 +135,7 @@ public class UserProfileManager {
             return;
         }
 
-        postsCollection.whereEqualTo("username", currentUser.getDisplayName()) // Fetch only user's posts
+        postsCollection.whereEqualTo("username", currentUser.getDisplayName())
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<Post> userPosts = new ArrayList<>();
@@ -123,29 +149,72 @@ public class UserProfileManager {
     }
 
     // Update profile details
-    public void updateProfile(String name, String bio, Uri profileImageUri, final UpdateCallback callback) {
-        if (currentUser == null) return;
+    public void updateProfile(String name, String bio, Uri profileImageUri, String height, String weight, String reach,
+                              String location, String gym, final UpdateCallback callback) {
+        if (currentUser == null) {
+            Log.e(TAG, "User is not signed in.");
+            callback.onFailure(new Exception("User is not signed in."));
+            return;
+        }
 
         Map<String, Object> userUpdates = new HashMap<>();
         userUpdates.put("name", name);
         userUpdates.put("bio", bio);
+        userUpdates.put("height", height);
+        userUpdates.put("weight", weight);
+        userUpdates.put("reach", reach);
+        userUpdates.put("location", location);
+        userUpdates.put("gym", gym);
+
+        Log.d(TAG, "Updating profile with data: " + userUpdates);
 
         if (profileImageUri != null) {
             StorageReference profileImageRef = storage.getReference().child("profile_images/" + currentUser.getUid() + ".jpg");
-            profileImageRef.putFile(profileImageUri).addOnSuccessListener(taskSnapshot ->
-                    profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        userUpdates.put("profileImage", uri.toString());
-                        saveUserData(userUpdates, callback);
-                    }));
+
+            Log.d(TAG, "Storage Path: " + profileImageRef.getPath());
+            Log.d(TAG, "User ID: " + currentUser.getUid());
+
+            // Upload the profile image to Firebase Storage
+            profileImageRef.putFile(profileImageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        // Retrieve the download URL once the upload succeeds
+                        profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            userUpdates.put("profileImage", uri.toString());
+                            Log.d(TAG, "Profile image uploaded successfully: " + uri.toString());
+
+                            // Save all updates, including the profile image URL
+                            saveUserData(userUpdates, callback);
+                        }).addOnFailureListener(e -> {
+                            Log.e(TAG, "Failed to get profile image download URL", e);
+                            callback.onFailure(e);
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Failed to upload profile image", e);
+                        callback.onFailure(e);
+                    });
         } else {
+            // If no new profile image is provided, save other updates directly
             saveUserData(userUpdates, callback);
         }
     }
 
+
+
+
     // Save user data to Firestore
     private void saveUserData(Map<String, Object> data, final UpdateCallback callback) {
+        Log.d(TAG, "Saving data to Firestore: " + data);
+
         db.collection("users").document(currentUser.getUid()).set(data, SetOptions.merge())
-                .addOnSuccessListener(aVoid -> callback.onSuccess())
-                .addOnFailureListener(callback::onFailure);
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Profile saved successfully.");
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error saving profile: ", e);
+                    callback.onFailure(e);
+                });
     }
+
 }

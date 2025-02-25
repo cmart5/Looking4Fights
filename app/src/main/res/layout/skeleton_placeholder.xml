@@ -1,0 +1,64 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+    <!-- Skeleton Circle for Profile Picture -->
+    <View
+            android:id="@+id/skeleton_circle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/skeleton_circle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Skeleton Rectangle for Name -->
+    <View
+            android:id="@+id/skeleton_name"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/skeleton_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.6"
+            android:layout_marginTop="16dp" />
+
+    <!-- Skeleton Rectangle for Bio -->
+    <View
+            android:id="@+id/skeleton_bio"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/skeleton_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            android:layout_marginTop="8dp" />
+
+    <!-- Skeleton Line for Stats -->
+    <View
+            android:id="@+id/skeleton_stats_line1"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/skeleton_bio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="16dp" />
+
+    <View
+            android:id="@+id/skeleton_stats_line2"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@id/skeleton_stats_line1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.7"
+            android:layout_marginTop="8dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

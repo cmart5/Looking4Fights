@@ -35,6 +35,7 @@ android {
 
 dependencies {
     // Google Dependencies
+    implementation ("com.google.android.material:material:1.9.0")
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation ("com.google.android.gms:play-services-auth:20.7.0") // Google Sign-In
@@ -83,5 +84,7 @@ dependencies {
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 }
 

@@ -1,32 +1,36 @@
 package com.example.looking4fight.data.model;
 
 public class Post {
-    private String imageUrl;
-    private String caption;
-    private String username;
-    private int likeCount;
+    private String name; // Matches Firestore field
+    private String mediaUrl; // Matches Firestore field
+    private String title; // Matches Firestore field
+    private String description; // Matches Firestore field
+    private String userId; // Matches Firestore field
+    private long timestamp; // Matches Firestore field
 
-    public Post(String imageUrl, String caption, String username, int likeCount) {
-        this.imageUrl = imageUrl;
-        this.caption = caption;
-        this.username = username;
-        this.likeCount = likeCount;
+    // Default constructor required for Firebase
+    public Post() {}
+
+    // Constructor for manual post creation
+    public Post(String mediaUrl, String title, String description, String userId, long timestamp) {
+        this.mediaUrl = mediaUrl != null ? mediaUrl : "";
+        this.title = title != null ? title : "";
+        this.description = description != null ? description : "";
+        this.userId = userId != null ? userId : "";
+        this.timestamp = timestamp;
     }
 
-    // Default constructor for Firebase
-    public Post() {
-        this.imageUrl = "";
-        this.caption = "";
-        this.username = "";
-        this.likeCount = 0;
-    }
+    // Getters (Firebase requires these for mapping)
+    public String getMediaUrl() { return mediaUrl; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getUserId() { return userId; }
+    public long getTimestamp() { return timestamp; }
 
-    // Getter methods
-    public String getImageUrl() { return imageUrl; }
-    public String getCaption() { return caption; }
-    public String getUsername() { return username; }
-    public int getLikeCount() { return likeCount; }
-
-    // Alias method for getText() (since caption is the post text)
-    public String getText() { return caption; }
+    // Setters (Needed for Firebase deserialization)
+    public void setMediaUrl(String mediaUrl) { this.mediaUrl = mediaUrl; }
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setUserId(String userId) { this.userId = userId; }
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 }
