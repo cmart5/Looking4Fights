@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //TODO: Reimplement stay signed in
+
         // Initialize Google Sign-In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)) // Web Client ID
@@ -91,6 +93,8 @@ public class LoginActivity extends AppCompatActivity {
             // Navigate to RegisterActivity
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
+
+        //TODO: Reimplement Forgot Password functionality
     }
 
     // Google Sign-In

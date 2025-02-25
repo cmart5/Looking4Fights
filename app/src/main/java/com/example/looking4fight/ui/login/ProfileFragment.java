@@ -28,7 +28,7 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private ImageView profileImage;
-    private TextView userName, userBio, postCount, followerCount, followingCount;
+    private TextView userName, userBio, postCount, followerCount, followingCount, userHeight, userWeight, userReach, userLocation, userGym;
     private Button editProfileButton;
     private FloatingActionButton addPostButton;
     private RecyclerView postRecyclerView;
@@ -208,7 +208,7 @@ public class ProfileFragment extends Fragment {
 
     // Save Profile Picture
     private void updateProfilePicture() {
-        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, new UserProfileManager.UpdateCallback() {
+        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, userHeight.getText().toString(), userWeight.getText().toString(), userReach.getText().toString(), userLocation.getText().toString(), userGym.getText().toString(), new UserProfileManager.UpdateCallback() {
             @Override
             public void onSuccess() {
                 if (imageUri != null) {
@@ -248,7 +248,8 @@ public class ProfileFragment extends Fragment {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_post, null);
         builder.setView(dialogView);
 
-        EditText postContent = dialogView.findViewById(R.id.edit_post_content);
+        //EditText postContent = dialogView.findViewById(R.id.edit_post_content);
+        EditText postContent = dialogView.findViewById(R.id.editTextTitle); //TODO: Confirm if this was the intended purpose
 
         builder.setPositiveButton("Post", (dialog, which) -> {
             String content = postContent.getText().toString().trim();
