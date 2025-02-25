@@ -48,6 +48,11 @@ public class ProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.profile_image);
         userName = view.findViewById(R.id.email);
         userBio = view.findViewById(R.id.user_bio);
+        userHeight = view.findViewById(R.id.user_height);
+        userWeight = view.findViewById(R.id.user_weight);
+        userReach = view.findViewById(R.id.user_reach);
+        userLocation = view.findViewById(R.id.user_location);
+        userGym = view.findViewById(R.id.user_gym);
         postCount = view.findViewById(R.id.post_count);
         followerCount = view.findViewById(R.id.follower_count);
         followingCount = view.findViewById(R.id.following_count);
@@ -114,26 +119,47 @@ public class ProfileFragment extends Fragment {
 
         EditText editUserName = dialogView.findViewById(R.id.edit_username);
         EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
+        EditText editHeight = dialogView.findViewById(R.id.edit_height);
+        EditText editWeight = dialogView.findViewById(R.id.edit_weight);
+        EditText editReach = dialogView.findViewById(R.id.edit_reach);
+        EditText editLoc = dialogView.findViewById(R.id.edit_location);
+        EditText editGym = dialogView.findViewById(R.id.edit_gym);
 
         // Pre-fill fields with existing user data
         editUserName.setText(userName.getText().toString());
         editUserBio.setText(userBio.getText().toString());
+        editHeight.setText(editHeight.getText().toString());
+        editWeight.setText(editWeight.getText().toString());
+        editReach.setText(editReach.getText().toString());
+        editLoc.setText(editLoc.getText().toString());
+        editGym.setText(editGym.getText().toString());
 
         // Auto-highlight text for quick editing
         editUserName.requestFocus();
         editUserName.selectAll();
         editUserBio.selectAll();
+        editHeight.selectAll();
+        editWeight.selectAll();
+        editReach.selectAll();
+        editLoc.selectAll();
+        editGym.selectAll();
 
         builder.setPositiveButton("Save", (dialog, which) -> {
             String newUserName = editUserName.getText().toString();
             String newUserBio = editUserBio.getText().toString();
+            String newHeight = editHeight.getText().toString();
+            String newWeight = editWeight.getText().toString();
+            String newReach = editReach.getText().toString();
+            String newLocation = editLoc.getText().toString();
+            String newGym = editGym.getText().toString();
+
 
             // Update UI
             userName.setText(newUserName);
             userBio.setText(newUserBio);
 
             // Save changes to Firestore or local storage
-            userProfileManager.updateProfile(newUserName, newUserBio, imageUri, new UserProfileManager.UpdateCallback() {
+            userProfileManager.updateProfile(newUserName, newUserBio, imageUri, newHeight, newWeight, newReach, newLocation, newGym, new UserProfileManager.UpdateCallback() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(requireContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
