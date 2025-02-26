@@ -1,10 +1,12 @@
 package com.example.looking4fight.ui.login;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         SignInButton googleSignInButton = findViewById(R.id.google_sign_in);
         Button loginButton = findViewById(R.id.login);
         Button registerButton = findViewById(R.id.register);
+        Button forgotPasswordButton = findViewById(R.id.btn_forgot_password);
         ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         // Google Sign-In
@@ -97,7 +100,47 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
 
-        //TODO: Reimplement Forgot Password functionality
+        // **Forgot Password Button Click Listener**
+        forgotPasswordButton.setOnClickListener(v -> {
+            Dialog forgotPasswordDialog = new Dialog(LoginActivity.this);
+            forgotPasswordDialog.setContentView(R.layout.dialog_reset_password);
+            forgotPasswordDialog.show();
+            Button cancelButton = forgotPasswordDialog.findViewById(R.id.btn_cancel);
+            Button sendEmailButton = forgotPasswordDialog.findViewById(R.id.btn_confirm);
+
+            //canceling
+            cancelButton.setOnClickListener(v1 -> {
+                forgotPasswordDialog.dismiss();
+            });
+
+            //sending password reset email
+            sendEmailButton.setOnClickListener(v1 -> {
+                try {
+                    EditText et = forgotPasswordDialog.findViewById(R.id.password_reset_email);
+                    String email = et.getText().toString().trim();
+                    if(email.isEmpty())
+                    {
+                        Toast.makeText(LoginActivity.this, "Please enter email", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            forgotPasswordDialog.dismiss();
+                            Toast.makeText(LoginActivity.this, "Email sent.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        });
     }
 
     // Google Sign-In
