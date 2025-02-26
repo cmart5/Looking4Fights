@@ -40,7 +40,10 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //TODO: Reimplement stay signed in
+        //automatically goes to main activity if current user is logged in
+        if(mAuth.getCurrentUser() != null){
+            navigateToMainActivity(mAuth.getCurrentUser());
+        }
 
         // Initialize Google Sign-In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
