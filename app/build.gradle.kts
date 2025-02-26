@@ -1,9 +1,5 @@
 plugins {
     id("com.android.application")
-
-    // Adds the Google services Gradle plugin
-    id("com.google.gms.google-services")
-
     id("com.google.gms.google-services")
 }
 
@@ -43,6 +39,7 @@ dependencies {
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation ("com.google.android.gms:play-services-auth:20.7.0") // Google Sign-In
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 
     // Glide for image loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
