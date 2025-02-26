@@ -140,7 +140,7 @@ public class CreatePostDialogFragment extends DialogFragment {
         db.collection("posts").add(post)
                 .addOnSuccessListener(documentReference -> {
                     showSuccessDialog();
-                    dismiss(); // ✅ Close dialog after success
+                    dismiss(); // Close dialog after success
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to save post", Toast.LENGTH_SHORT).show());
 
