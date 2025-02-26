@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
 <!--    <meta-data-->
@@ -12,6 +14,11 @@
 <!--    <meta-data-->
 <!--            android:name="com.facebook.sdk.ClientToken"-->
 <!--            android:value="@string/facebook_client_token"/>-->
+
+    <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY_HERE" />
+
 
     <application
             android:allowBackup="true"
@@ -26,6 +33,7 @@
 
         <activity
                 android:name=".ui.login.LoginActivity"
+                android:windowSoftInputMode="adjustResize"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -39,7 +47,7 @@
 
 
         <activity
-                android:name=".MainActivity"
+                android:name=".fragments.MainActivity"
                 android:exported="true"
                 android:launchMode="singleTop"/>
 
