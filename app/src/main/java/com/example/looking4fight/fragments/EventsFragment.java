@@ -74,6 +74,18 @@ public class EventsFragment extends Fragment {
         }
     }
 
+//    @Override
+//    public void onMapReady(@NonNull GoogleMap googleMap) {
+//        mMap = googleMap;
+//
+//        // Set default location (example: New York City)
+//        LatLng defaultLocation = new LatLng(40.7128, -74.0060);
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+//
+//        // Add a sample marker
+//        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Event Location"));
+//    }
+
     private void fetchEvents() {
         db = FirebaseFirestore.getInstance();
         db.collection("events")

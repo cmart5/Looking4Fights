@@ -170,14 +170,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_GOOGLE_SIGN_IN) {
-            try {
+        if (requestCode == RC_GOOGLE_SIGN_IN)
+        {
+            try
+            {
                 GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(data)
                         .getResult(ApiException.class);
-                if (account != null) {
+                if (account != null)
+                {
                     firebaseAuthWithGoogle(account);
                 }
-            } catch (ApiException e) {
+            } catch (ApiException e)
+            {
                 Log.e(TAG, "Google sign in failed", e);
                 Toast.makeText(this, "Google sign-in failed. Please try again.", Toast.LENGTH_SHORT).show();
             }

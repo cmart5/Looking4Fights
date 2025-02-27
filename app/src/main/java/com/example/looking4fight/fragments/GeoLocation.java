@@ -1,4 +1,5 @@
-package com.example.looking4fight;
+package com.example.looking4fight.fragments;
+import com.example.looking4fight.R;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -66,7 +67,7 @@ public class GeoLocation extends AppCompatActivity {
                         double longitude = location.getLongitude();
                         storeLocationInFirestore(latitude, longitude);
                     } else {
-                        Toast.makeText(MainActivity.this, "Failed to get location", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GeoLocation.this, "Failed to get location", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -74,7 +75,7 @@ public class GeoLocation extends AppCompatActivity {
     }
 
     private void storeLocationInFirestore(double latitude, double longitude) {
-        String userId = "sampleUserId"; // Need to assigne to a user id once I add events
+        String userId = "sampleUserId"; // Need to assign to a user id once I add events
         GeoPoint geoPoint = new GeoPoint(latitude, longitude);
         db.collection("users").document(userId)
                 .update("location", geoPoint)

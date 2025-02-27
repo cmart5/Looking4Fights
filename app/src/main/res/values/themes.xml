@@ -5,10 +5,10 @@
         <item name="colorPrimary">@color/secondary_dark</item>
         <item name="colorPrimaryContainer">@color/secondary_light</item>
         <item name="colorSecondary">@color/accent</item>
-        <item name="colorSecondaryContainer">@color/gray_light</item>
+        <item name="colorSecondaryContainer">@color/primary</item>
 
         <!-- Background and Surface -->
-        <item name="colorSurface">@color/gray_light</item>
+        <item name="colorSurface">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
 
         <!-- Text Colors -->
