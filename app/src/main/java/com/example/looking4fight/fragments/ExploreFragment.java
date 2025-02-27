@@ -82,11 +82,18 @@ public class ExploreFragment extends Fragment
                         Log.e("ExploreFragment", "Failed to fetch posts", error);
                         return;
                     }
+                        if (value == null){
+                        return; //No Data
+                            }
+                        postList.clear();
 
                     for (DocumentSnapshot doc : value.getDocuments())
                     {
                         Post post = doc.toObject(Post.class);
-                        postList.add(post);
+                        if (post != null){
+                            post.setPostId(doc.getId());
+                            postList.add(post);
+                        }
                     }
 
                     if (exploreAdapter != null)
