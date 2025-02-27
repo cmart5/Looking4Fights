@@ -1,25 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="16dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:padding="16dp" android:scrollbarStyle="outsideInset">
 
-    <!-- Edit Username Field -->
-    <EditText
-            android:id="@+id/edit_username"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter new username"
-            android:textSize="16sp" />
+            android:orientation="vertical">
 
-    <!-- Edit Bio Field -->
-    <EditText
-            android:id="@+id/edit_bio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter new bio"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp" />
+        <!-- Edit Username Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
 
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your name..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Bio Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bio"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your bio..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Height Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Height"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your height..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Weight Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Weight"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Eneter your weight..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Reach Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Reach"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_reach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your reach..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Location Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your location..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Edit Gym Field -->
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Gym"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/gray_dark"
+                android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_gym"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter your gym..."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+</ScrollView>

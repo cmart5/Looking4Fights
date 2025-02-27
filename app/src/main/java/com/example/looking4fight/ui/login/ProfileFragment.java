@@ -28,7 +28,7 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private ImageView profileImage;
-    private TextView userName, userBio, postCount, followerCount, followingCount;
+    private TextView userName, userBio, postCount, followerCount, followingCount, userHeight, userWeight, userReach, userLocation, userGym;
     private Button editProfileButton;
     private FloatingActionButton addPostButton;
     private RecyclerView postRecyclerView;
@@ -46,13 +46,18 @@ public class ProfileFragment extends Fragment {
 
         // Initialize UI elements
         profileImage = view.findViewById(R.id.profile_image);
-        userName = view.findViewById(R.id.username);
+        userName = view.findViewById(R.id.email);
         userBio = view.findViewById(R.id.user_bio);
+        userHeight = view.findViewById(R.id.user_height);
+        userWeight = view.findViewById(R.id.user_weight);
+        userReach = view.findViewById(R.id.user_reach);
+        userLocation = view.findViewById(R.id.user_location);
+        userGym = view.findViewById(R.id.user_gym);
         postCount = view.findViewById(R.id.post_count);
         followerCount = view.findViewById(R.id.follower_count);
         followingCount = view.findViewById(R.id.following_count);
         editProfileButton = view.findViewById(R.id.edit_profile_button);
-        addPostButton = view.findViewById(R.id.add_post_button);
+        //addPostButton = view.findViewById(R.id.add_post_button);
         postRecyclerView = view.findViewById(R.id.post_recycler_view);
 
         userProfileManager = new UserProfileManager();
@@ -66,7 +71,7 @@ public class ProfileFragment extends Fragment {
         // Load User Profile
         userProfileManager.fetchUserProfile(new UserProfileManager.UserProfileCallback() {
             @Override
-            public void onProfileLoaded(String name, String bio, String profileImageUri, long posts, long followers, long following) {
+            public void onProfileLoaded(String name, String bio, String profileImageURL, long posts, long followers, long following, String height, String weight, String reach, String location, String gym) {
                 userName.setText(name);
                 userBio.setText(bio);
                 postCount.setText(String.valueOf(posts));
@@ -74,10 +79,10 @@ public class ProfileFragment extends Fragment {
                 followingCount.setText(String.valueOf(following));
 
                 // Load profile image using Glide
-                if (profileImageUri != null && !profileImageUri.isEmpty()) {
+                if (profileImageURL != null && !profileImageURL.isEmpty()) {
                     hasProfilePicture = true;
                     Glide.with(requireContext())
-                            .load(profileImageUri)
+                            .load(profileImageURL)
                             .placeholder(R.drawable.loading_bar)
                             .error(R.drawable.error_image)
                             .into(profileImage);
@@ -114,26 +119,47 @@ public class ProfileFragment extends Fragment {
 
         EditText editUserName = dialogView.findViewById(R.id.edit_username);
         EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
+        EditText editHeight = dialogView.findViewById(R.id.edit_height);
+        EditText editWeight = dialogView.findViewById(R.id.edit_weight);
+        EditText editReach = dialogView.findViewById(R.id.edit_reach);
+        EditText editLoc = dialogView.findViewById(R.id.edit_location);
+        EditText editGym = dialogView.findViewById(R.id.edit_gym);
 
         // Pre-fill fields with existing user data
         editUserName.setText(userName.getText().toString());
         editUserBio.setText(userBio.getText().toString());
+        editHeight.setText(editHeight.getText().toString());
+        editWeight.setText(editWeight.getText().toString());
+        editReach.setText(editReach.getText().toString());
+        editLoc.setText(editLoc.getText().toString());
+        editGym.setText(editGym.getText().toString());
 
         // Auto-highlight text for quick editing
         editUserName.requestFocus();
         editUserName.selectAll();
         editUserBio.selectAll();
+        editHeight.selectAll();
+        editWeight.selectAll();
+        editReach.selectAll();
+        editLoc.selectAll();
+        editGym.selectAll();
 
         builder.setPositiveButton("Save", (dialog, which) -> {
             String newUserName = editUserName.getText().toString();
             String newUserBio = editUserBio.getText().toString();
+            String newHeight = editHeight.getText().toString();
+            String newWeight = editWeight.getText().toString();
+            String newReach = editReach.getText().toString();
+            String newLocation = editLoc.getText().toString();
+            String newGym = editGym.getText().toString();
+
 
             // Update UI
             userName.setText(newUserName);
             userBio.setText(newUserBio);
 
             // Save changes to Firestore or local storage
-            userProfileManager.updateProfile(newUserName, newUserBio, imageUri, new UserProfileManager.UpdateCallback() {
+            userProfileManager.updateProfile(newUserName, newUserBio, imageUri, newHeight, newWeight, newReach, newLocation, newGym, new UserProfileManager.UpdateCallback() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(requireContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
@@ -182,7 +208,7 @@ public class ProfileFragment extends Fragment {
 
     // Save Profile Picture
     private void updateProfilePicture() {
-        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, new UserProfileManager.UpdateCallback() {
+        userProfileManager.updateProfile(userName.getText().toString(), userBio.getText().toString(), imageUri, userHeight.getText().toString(), userWeight.getText().toString(), userReach.getText().toString(), userLocation.getText().toString(), userGym.getText().toString(), new UserProfileManager.UpdateCallback() {
             @Override
             public void onSuccess() {
                 if (imageUri != null) {
@@ -222,7 +248,8 @@ public class ProfileFragment extends Fragment {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_post, null);
         builder.setView(dialogView);
 
-        EditText postContent = dialogView.findViewById(R.id.edit_post_content);
+        //EditText postContent = dialogView.findViewById(R.id.edit_post_content);
+        EditText postContent = dialogView.findViewById(R.id.editTextTitle); //TODO: Confirm if this was the intended purpose
 
         builder.setPositiveButton("Post", (dialog, which) -> {
             String content = postContent.getText().toString().trim();
