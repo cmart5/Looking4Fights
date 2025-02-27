@@ -78,7 +78,8 @@ public class EventsFragment extends Fragment
     }
 
 //    @Override
-//    public void onMapReady(@NonNull GoogleMap googleMap) {
+//    public void onMapReady(@NonNull GoogleMap googleMap)
+//    {
 //        mMap = googleMap;
 //
 //        // Set default location (example: New York City)
@@ -89,7 +90,8 @@ public class EventsFragment extends Fragment
 //        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Event Location"));
 //    }
 
-    private void fetchEvents() {
+    private void fetchEvents()
+    {
         db = FirebaseFirestore.getInstance();
         db.collection("events")
                 .orderBy("date", Query.Direction.ASCENDING)

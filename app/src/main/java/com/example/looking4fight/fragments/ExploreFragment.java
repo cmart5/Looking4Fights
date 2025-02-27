@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.looking4fight.R;
 import com.example.looking4fight.data.model.Post;
 import com.example.looking4fight.data.model.PostAdapter;
+import com.example.looking4fight.fragments.ui.DividerItemDecoration;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -37,6 +39,7 @@ public class ExploreFragment extends Fragment
                              Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_explore, container, false);
+
     }
 
     @Override
@@ -44,9 +47,14 @@ public class ExploreFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
+        SearchView searchView = view.findViewById(R.id.searchView);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        searchIcon.setImageResource(R.drawable.search_icon);
+
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -60,7 +68,8 @@ public class ExploreFragment extends Fragment
         });
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2-column grid
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1)); // 2-column grid
+
 
         // Initialize the adapter with an empty list and set it on the RecyclerView
         exploreAdapter = new PostAdapter(new ArrayList<>());
@@ -107,10 +116,13 @@ public class ExploreFragment extends Fragment
                 });
     }
 
-    private void filterList(String searchQuery) {
+    private void filterList(String searchQuery)
+    {
         List<Post> filteredList = new ArrayList<>();
-        for(Post post : postList) {
-            if(post.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
+        for(Post post : postList)
+        {
+            if(post.getTitle().toLowerCase().contains(searchQuery.toLowerCase()))
+            {
                 filteredList.add(post);
             }
         }
