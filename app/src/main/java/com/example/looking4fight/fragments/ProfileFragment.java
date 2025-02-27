@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         // Setup RecyclerView for user posts
         userPosts = new ArrayList<>();
         postAdapter = new ProfilePostAdapter(userPosts);
-        postRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // 3 columns
+        postRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2)); // 3 columns
         postRecyclerView.addItemDecoration(new GridSpacing(10));
         postRecyclerView.setAdapter(postAdapter);
 

@@ -4,33 +4,47 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/gray_dark">
 
-    <RelativeLayout
-            xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".YourActivity">
+            android:orientation="vertical"
+            android:padding="12dp">
 
-        <com.google.android.exoplayer2.ui.StyledPlayerView
-                android:id="@+id/videoView"
+        <!-- Video Thumbnail -->
+        <ImageView
+                android:id="@+id/videoThumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@android:color/black" />
+                android:layout_height="250dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/project_logo"/>
 
+        <!-- Post Title -->
         <TextView
                 android:id="@+id/videoTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Video Title"
-                android:textColor="@android:color/white"
+                android:text="Post Title"
                 android:textSize="16sp"
-                android:padding="8dp"
-                android:background="#99000000"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="4dp" />
+                android:textStyle="bold"
+                android:textColor="#333"
+                android:paddingTop="8dp"/>
 
-    </RelativeLayout>
+        <!-- Video Description -->
+        <TextView
+                android:id="@+id/videoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Short video description..."
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:paddingTop="4dp"/>
 
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

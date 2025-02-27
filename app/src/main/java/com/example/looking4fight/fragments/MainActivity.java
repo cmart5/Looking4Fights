@@ -1,14 +1,17 @@
 package com.example.looking4fight.fragments;
 
 import android.os.Bundle;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.looking4fight.R;
 import com.example.looking4fight.SettingsFragment;
 import com.example.looking4fight.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     private ActivityMainBinding binding;
 
@@ -21,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment activeFragment = exploreFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -30,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         // Load fragments only if first launch
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
+        {
             fragmentManager.beginTransaction()
                     .add(R.id.frameLayout, exploreFragment, "explore").commit();
             fragmentManager.beginTransaction()
@@ -39,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.frameLayout, settingsFragment, "settings").hide(settingsFragment).commit();
             fragmentManager.beginTransaction()
                     .add(R.id.frameLayout, eventsFragment, "settings").hide(eventsFragment).commit();
-        } else {
+        }
+        else
+        {
             // Restore active fragment after configuration change
             activeFragment = fragmentManager.findFragmentByTag(savedInstanceState.getString("activeFragment"));
         }
@@ -50,12 +57,16 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.createPost)
             {
                 openCreatePostDialog(); // Open modal dialog
-            } else
+            }
+            else
             {
                 switchFragment(getSelectedFragment(item.getItemId()));
             }
             return true;
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.secondary_light));
     }
 
     private Fragment getSelectedFragment(int itemId)
@@ -67,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
         return exploreFragment; // Default
     }
 
-    private void switchFragment(Fragment fragment) {
-        if (fragment != activeFragment) {
+    private void switchFragment(Fragment fragment)
+    {
+        if (fragment != activeFragment)
+        {
             getSupportFragmentManager().beginTransaction()
                     .hide(activeFragment)
                     .show(fragment)
@@ -77,13 +90,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openCreatePostDialog() {
+    private void openCreatePostDialog()
+    {
         CreatePostDialogFragment createPostDialog = new CreatePostDialogFragment();
         createPostDialog.show(getSupportFragmentManager(), "CreatePostDialog");
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
         outState.putString("activeFragment", activeFragment.getTag());
     }

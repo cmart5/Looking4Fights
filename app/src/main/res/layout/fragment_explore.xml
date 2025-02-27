@@ -14,12 +14,19 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/item_video"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="10dp"/>
     <androidx.appcompat.widget.SearchView
             android:layout_width="391dp"
             android:layout_height="29dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/searchView" android:layout_marginTop="25dp" app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/searchView"
+            android:background="@drawable/bg_search"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search posts..."
+            app:defaultQueryHint="Search posts..."
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
