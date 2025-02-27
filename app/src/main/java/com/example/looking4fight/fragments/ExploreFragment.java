@@ -56,19 +56,21 @@ public class ExploreFragment extends Fragment
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
+            public boolean onQueryTextChange(String query)
+            {
                 filterList(query);
                 return true;
             }
         });
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1)); // 2-column grid
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1)); // 1-column grid
 
 
         // Initialize the adapter with an empty list and set it on the RecyclerView
