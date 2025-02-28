@@ -46,14 +46,14 @@
             android:id="@+id/buttonSignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="?colorPrimary"
+            android:backgroundTint="?colorSecondary"
             android:text="Sign Out" />
 
         <Button
             android:id="@+id/buttonDeleteAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="?colorSecondary"
+            android:backgroundTint="?colorAccent"
             android:text="Delete Account" />
 
     </LinearLayout>

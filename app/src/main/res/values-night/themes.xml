@@ -5,12 +5,19 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
         <!--Primary Colors-->
-        <item name="colorPrimary">@color/secondary_darker</item>
-        <item name="colorSecondary">@color/accent_darker</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorSecondary">@color/secondary_darker</item>
+        <item name="colorAccent">@color/accent_darker</item>
         <item name="colorButtonNormal">@color/primary_dark</item>
+
+        <!--Container Colors-->
+        <item name="colorPrimaryContainer">@color/gray</item>
+        <item name="colorSecondaryContainer">@color/gray_dark</item>
 
         <!--Background Colors-->
         <item name="android:colorBackground">@color/primary_light</item>
+        <item name="colorSurface">@color/gray</item>
+
 
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/gray_light</item>

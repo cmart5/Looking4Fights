@@ -19,7 +19,8 @@
     <!-- Text & Background Colors -->
     <color name="white">#FFFFFF</color> <!-- White Text -->
     <color name="gray_light">#E0E0E0</color> <!-- Light Gray -->
-    <color name="gray_dark">#757575</color> <!-- Dark Gray -->
+    <color name="gray">#757575</color>
+    <color name="gray_dark">#464646</color> <!-- Dark Gray -->
 
     <!-- Button Colors -->
     <color name="button_background">#00A6FF</color> <!-- Blue Button Background -->
