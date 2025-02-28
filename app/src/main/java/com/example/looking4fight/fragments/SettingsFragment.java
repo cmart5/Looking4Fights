@@ -2,16 +2,21 @@ package com.example.looking4fight;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.UiModeManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import com.example.looking4fight.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,6 +29,7 @@ import com.google.firebase.auth.*;
 public class SettingsFragment extends Fragment {
 
     private Button logoutButton, buttonDeleteAccount;
+    private Switch darkModeSwitch;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -31,6 +37,27 @@ public class SettingsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         logoutButton = v.findViewById(R.id.buttonSignOut);
         buttonDeleteAccount = v.findViewById(R.id.buttonDeleteAccount);
+        darkModeSwitch = v.findViewById(R.id.switchDarkTheme);
+
+        if(isNightMode(this.getContext())){
+            darkModeSwitch.setChecked(true);
+        }
+        else {
+            darkModeSwitch.setChecked(false);
+        }
+
+        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(darkModeSwitch.isChecked()){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +86,7 @@ public class SettingsFragment extends Fragment {
         });
 
         buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
-            //TODO: Add Google reauth, reorganize code, make login confirmation useable anywhere
+            //TODO: reorganize code, make login confirmation useable anywhere
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -142,34 +169,13 @@ public class SettingsFragment extends Fragment {
                         });
                     }
                 });
-
-                googleSignInButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        /*
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-                        if (acct != null) {
-                            AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                            user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getActivity(), "Re-authentication Successful", Toast.LENGTH_LONG).show();
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(getActivity(), task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        }
-                         */
-                    }
-                });
             };
         });
         return v;
+    }
+
+    public boolean isNightMode(Context context) {
+        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 }

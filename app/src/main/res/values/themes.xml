@@ -4,8 +4,10 @@
         <!-- Primary and secondary colors -->
         <item name="colorPrimary">@color/secondary_dark</item>
         <item name="colorPrimaryContainer">@color/secondary_light</item>
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondary">@color/accent_dark</item>
         <item name="colorSecondaryContainer">@color/gray_light</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorButtonNormal">@color/primary_dark</item>
 
         <!-- Background and Surface -->
         <item name="colorSurface">@color/gray_light</item>
@@ -14,8 +16,8 @@
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorOnBackground">@color/white</item>
-        <item name="colorOnSurface">@color/primary</item>
+        <item name="colorOnBackground">@color/primary</item>
+        <item name="colorOnSurface">@color/white</item>
     </style>
 
     <style name="Theme.Looking4Fight" parent="Base.Theme.Looking4Fight"/>

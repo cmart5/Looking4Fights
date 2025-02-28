@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:padding="16dp">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <!-- Notifications -->
 
         <Switch
-                android:id="@+id/switchNotifications"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enable Notifications"/>
+            android:id="@+id/switchNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Notifications"
+            android:textColor="?colorOnBackground"/>
 
         <!-- Theme -->
 
         <Switch
-                android:text="Profile Privacy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/PrivacySwitch"/>
+            android:id="@+id/PrivacySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Privacy"
+            android:textColor="?colorOnBackground"/>
+
         <Switch
-                android:id="@+id/switchDarkTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dark Mode"/>
+            android:id="@+id/switchDarkTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textColor="?colorOnBackground"/>
 
         <Button
-                android:id="@+id/buttonAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary"
-                android:text="About"/>
+            android:id="@+id/buttonAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorButtonNormal"
+            android:text="About" />
+
         <Button
-                android:id="@+id/buttonSignOut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/secondary"
-                android:text="Sign Out"/>
+            android:id="@+id/buttonSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorPrimary"
+            android:text="Sign Out" />
+
         <Button
-                android:id="@+id/buttonDeleteAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/accent_dark"
-                android:text="Delete Account"/>
+            android:id="@+id/buttonDeleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:text="Delete Account" />
 
     </LinearLayout>
 

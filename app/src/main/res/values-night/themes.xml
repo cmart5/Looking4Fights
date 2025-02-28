@@ -3,5 +3,19 @@
     <style name="Base.Theme.Looking4Fight" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <!--Primary Colors-->
+        <item name="colorPrimary">@color/secondary_darker</item>
+        <item name="colorSecondary">@color/accent_darker</item>
+        <item name="colorButtonNormal">@color/primary_dark</item>
+
+        <!--Background Colors-->
+        <item name="android:colorBackground">@color/primary_light</item>
+
+        <!-- Text Colors -->
+        <item name="colorOnPrimary">@color/gray_light</item>
+        <item name="colorOnSecondary">@color/gray_light</item>
+        <item name="colorOnBackground">@color/gray_light</item>
+        <item name="colorOnSurface">@color/gray_light</item>
     </style>
 </resources>

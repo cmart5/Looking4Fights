@@ -9,10 +9,12 @@
     <color name="accent">#FF0000</color> <!-- Red -->
     <color name="accent_light">#FF4D4D</color> <!-- Light Red -->
     <color name="accent_dark">#B20000</color> <!-- Dark Red -->
+    <color name="accent_darker">#750000</color> <!-- Darker Dark Red -->
 
     <color name="secondary">#00A6FF</color> <!-- Blue from Logo -->
     <color name="secondary_light">#66C7FF</color> <!-- Light Blue -->
     <color name="secondary_dark">#0072B5</color> <!-- Dark Blue -->
+    <color name="secondary_darker">#590072B5</color> <!--Darker Blue-->
 
     <!-- Text & Background Colors -->
     <color name="white">#FFFFFF</color> <!-- White Text -->
