@@ -70,6 +70,7 @@
             android:layout_marginBottom="16dp" />
 
     <!-- Edit Profile Button -->
+    <!-- TODO: Figure out why button color wont change -->
     <Button
             android:id="@+id/edit_profile_button"
             android:layout_width="200dp"
@@ -78,10 +79,9 @@
             android:layout_marginBottom="16dp"
             android:text="Edit Profile"
             android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/accent"
             android:gravity="center"
-            android:textSize="16sp"
-            android:backgroundTint="?colorOnSecondary"
-            android:textColor="?colorOnSecondary"/>
+            android:textSize="16sp"/>
 
     <!-- Profile Stats -->
     <LinearLayout
@@ -106,14 +106,14 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Posts"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
         </LinearLayout>
 
         <!-- Followers -->
@@ -131,14 +131,14 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Followers"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
         </LinearLayout>
 
         <!-- Following -->
@@ -155,14 +155,14 @@
                     android:text="0"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Following"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="?colorOnBackground" />
         </LinearLayout>
     </LinearLayout>
 
@@ -186,7 +186,8 @@
                 android:text="Height: N/A"
                 android:drawableLeft="@drawable/ic_height"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:textColor="?colorOnSecondaryContainer"
+                android:drawableTint="?colorOnSecondaryContainer"
                 android:layout_marginBottom="8dp" />
 
         <!-- Weight -->
@@ -197,7 +198,8 @@
                 android:text="Weight: N/A"
                 android:drawableLeft="@drawable/ic_weight"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:textColor="?colorOnSecondaryContainer"
+                android:drawableTint="?colorOnSecondaryContainer"
                 android:layout_marginBottom="8dp" />
 
         <!-- Reach -->
@@ -208,7 +210,8 @@
                 android:text="Reach: N/A"
                 android:drawableLeft="@drawable/ic_reach_resized"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+            android:textColor="?colorOnSecondaryContainer"
+            android:drawableTint="?colorOnSecondaryContainer"
                 android:layout_marginBottom="8dp" />
 
         <!-- Location -->
@@ -219,7 +222,8 @@
                 android:text="Location: N/A"
                 android:drawableLeft="@drawable/ic_location"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+            android:textColor="?colorOnSecondaryContainer"
+            android:drawableTint="?colorOnSecondaryContainer"
                 android:layout_marginBottom="8dp" />
 
         <!-- Gym -->
@@ -230,7 +234,8 @@
                 android:text="Gym: N/A"
                 android:drawableLeft="@drawable/ic_gym"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+            android:textColor="?colorOnSecondaryContainer"
+            android:drawableTint="?colorOnSecondaryContainer"
                 android:layout_marginBottom="8dp" />
     </LinearLayout>
 

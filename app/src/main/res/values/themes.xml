@@ -20,7 +20,7 @@
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorOnBackground">@color/primary_dark</item>
+        <item name="colorOnBackground">@android:color/black</item>
         <item name="colorOnSurface">@color/white</item>
     </style>
 
