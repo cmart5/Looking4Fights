@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.example.looking4fight.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -129,18 +130,24 @@ public class CreatePostDialogFragment extends DialogFragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault());
         String formattedDate = sdf.format(new Date(timestampMillis));
 
+        // Generate a new document with a UID
+        DocumentReference newPostRef = db.collection("posts").document(formattedDate);
+        String newPostId = newPostRef.getId();
+
         Map<String, Object> post = new HashMap<>();
+        post.put("postId", newPostId);
         post.put("mediaUrl", mediaUrl);
         post.put("title", title);
         post.put("description", description);
         post.put("userId", auth.getUid());
         post.put("timestampMillis", timestampMillis);
         post.put("timestampFormatted", formattedDate);
+        post.put("likesCount", 0); // initialize like count to zero
 
         db.collection("posts").add(post)
                 .addOnSuccessListener(documentReference -> {
                     showSuccessDialog();
-                    dismiss(); // ✅ Close dialog after success
+                    dismiss(); // Close dialog after success
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to save post", Toast.LENGTH_SHORT).show());
 

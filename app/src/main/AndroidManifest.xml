@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 <!--    <meta-data-->
 <!--            android:name="com.facebook.sdk.ApplicationId"-->
@@ -15,9 +17,7 @@
 <!--            android:name="com.facebook.sdk.ClientToken"-->
 <!--            android:value="@string/facebook_client_token"/>-->
 
-    <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY_HERE" />
+
 
 
     <application
@@ -30,7 +30,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Looking4Fight"
             tools:targetApi="31">
-
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="YOUR_API_KEY_HERE" />
         <activity
                 android:name=".ui.login.LoginActivity"
                 android:windowSoftInputMode="adjustResize"

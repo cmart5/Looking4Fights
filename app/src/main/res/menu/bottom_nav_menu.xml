@@ -3,18 +3,21 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.example.looking4fight.fragments.MainActivity">
     <item android:title="Home"
-          android:icon="@drawable/baseline_home_24"
+          android:icon="@drawable/explore_icon"
+          android:iconTint="@color/secondary_light"
           android:id="@+id/home"/>
     <item android:title="Events"
-          android:icon="@drawable/baseline_add_location_24"
+          android:icon="@drawable/events_icon"
+          android:iconTint="@color/secondary_light"
           android:id="@+id/events"/>
     <item android:title="Create Post"
-          android:icon="@drawable/baseline_add_box_32"
+          android:icon="@drawable/punch_icon"
           android:id="@+id/createPost"/>
     <item android:title="Profile"
-          android:icon="@drawable/baseline_account_box_24"
+          android:icon="@drawable/profile_icon"
           android:id="@+id/profile"/>
     <item android:title="Settings"
-          android:icon="@drawable/baseline_app_settings_alt_24"
+          android:icon="@drawable/settings_icon"
+          android:iconTint="@color/secondary_light"
           android:id="@+id/settings"/>
 </menu>
