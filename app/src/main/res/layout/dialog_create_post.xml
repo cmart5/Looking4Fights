@@ -8,6 +8,7 @@
         android:background="?android:colorBackground">
 
     <!-- Title Input -->
+    <!--TODO: Dark Mode UI improvements-->
     <EditText
             android:id="@+id/editTextTitle"
             android:layout_width="0dp"

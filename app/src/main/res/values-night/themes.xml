@@ -12,11 +12,11 @@
         <!-- Buttons -->
         <item name="colorButtonNormal">@color/primary_dark</item>
         <item name="buttonBarPositiveButtonStyle">@color/secondary_darker</item>
-        <item name="buttonBarNeutralButtonStyle">@color/primary_dark</item>
+        <item name="buttonBarNeutralButtonStyle">@color/primary</item>
         <item name="buttonBarNegativeButtonStyle">@color/accent_darker</item>
 
         <!--Container Colors-->
-        <item name="colorPrimaryContainer">@color/gray</item>
+        <item name="colorPrimaryContainer">@color/gray_dark</item>
         <item name="colorSecondaryContainer">@color/gray_dark</item>
 
         <!--Background Colors-->
@@ -27,6 +27,7 @@
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/gray_light</item>
         <item name="colorOnSecondary">@color/gray_light</item>
+        <item name="colorOnSecondaryContainer">@color/gray_light</item>
         <item name="colorOnBackground">@color/gray_light</item>
         <item name="colorOnSurface">@color/gray_light</item>
 
