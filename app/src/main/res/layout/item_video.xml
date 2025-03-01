@@ -7,7 +7,7 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/gray_dark">
+        app:cardBackgroundColor="?colorSecondaryContainer">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:text="Post Title"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#333"
+                android:textColor="?colorOnSecondaryContainer"
                 android:paddingTop="8dp"/>
 
         <!-- Video Description -->
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="Short video description..."
                 android:textSize="14sp"
-                android:textColor="#666"
+                android:textColor="?colorOnSecondaryContainer"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:paddingTop="4dp"/>
