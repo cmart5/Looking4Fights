@@ -25,6 +25,7 @@
 
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimaryContainer">@android:color/black</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorOnSecondaryContainer">@android:color/black</item>
         <item name="colorOnBackground">@android:color/black</item>

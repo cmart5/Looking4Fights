@@ -26,6 +26,7 @@
 
         <!-- Text Colors -->
         <item name="colorOnPrimary">@color/gray_light</item>
+        <item name="colorOnPrimaryContainer">@color/gray_light</item>
         <item name="colorOnSecondary">@color/gray_light</item>
         <item name="colorOnSecondaryContainer">@color/gray_light</item>
         <item name="colorOnBackground">@color/gray_light</item>
