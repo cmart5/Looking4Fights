@@ -6,6 +6,7 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import com.example.looking4fight.fragments.MainActivity;
 import com.example.looking4fight.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,6 +27,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+
+import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
 
@@ -50,12 +54,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if(darkModeSwitch.isChecked()){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+                onDarkModeToggled(darkModeSwitch.isChecked());
             }
         });
 
@@ -177,5 +176,23 @@ public class SettingsFragment extends Fragment {
     public boolean isNightMode(Context context) {
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public void onDarkModeToggled(boolean darkMode) {
+        if(darkMode)
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        /*
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("open_settings_fragment", true); // Set the flag to open SettingsFragment
+        startActivity(intent);
+        Objects.requireNonNull(getActivity()).finish(); // Close the current activity (SettingsFragment)
+        requireActivity().recreate(); // Restart the activity
+
+         */
     }
 }

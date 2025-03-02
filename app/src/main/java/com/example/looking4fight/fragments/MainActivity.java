@@ -1,5 +1,6 @@
 package com.example.looking4fight.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,15 +28,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         // Load fragments only if first launch
-        if (savedInstanceState == null)
+        if (savedInstanceState == null || true)
         {
+
             fragmentManager.beginTransaction()
                     .add(R.id.frameLayout, exploreFragment, "explore").commit();
             fragmentManager.beginTransaction()
