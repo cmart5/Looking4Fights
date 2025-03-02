@@ -2,6 +2,8 @@ package com.example.looking4fight.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -91,6 +93,14 @@ public class MainActivity extends AppCompatActivity
                     .commit();
             activeFragment = fragment;
         }
+    }
+
+    public void restoreBottomNavigationSelection() {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+            int selectedItemId = bottomNavigationView.getSelectedItemId();
+            bottomNavigationView.setSelectedItemId(selectedItemId);
+        }, 100); // Small delay to ensure UI updates properly
     }
 
     private void openCreatePostDialog()

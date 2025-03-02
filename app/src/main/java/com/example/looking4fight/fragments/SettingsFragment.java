@@ -1,5 +1,6 @@
 package com.example.looking4fight;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.UiModeManager;
@@ -185,6 +186,12 @@ public class SettingsFragment extends Fragment {
         }
         else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Restore Bottom Navigation Selection
+        Activity activity = getActivity();
+        if (activity instanceof MainActivity) {
+            ((MainActivity) activity).restoreBottomNavigationSelection();
         }
         /*
         Intent intent = new Intent(getActivity(), MainActivity.class);
