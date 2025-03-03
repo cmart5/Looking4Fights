@@ -27,32 +27,40 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsFragment extends Fragment {
+public class EventsFragment extends Fragment implements OnMapReadyCallback
+{
 
     private RecyclerView recyclerViewEvents;
     private EventAdapter eventAdapter;
     private FirebaseFirestore db;
     private GoogleMap mMap;
 
-    public EventsFragment() {
+    public EventsFragment()
+    {
         // Required empty public constructor
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_events, container, false);
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerViewEvents = view.findViewById(R.id.recyclerViewEvents);
-        if (recyclerViewEvents == null) {
+        if (recyclerViewEvents == null)
+        {
             Log.e("EventsFragment", "RecyclerView is null");
-        } else {
+        }
+        else
+        {
             recyclerViewEvents.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
@@ -64,46 +72,56 @@ public class EventsFragment extends Fragment {
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.mapFragment);
 
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(googleMap -> {
+        if (mapFragment != null)
+        {
+            mapFragment.getMapAsync(googleMap ->
+            {
                 mMap = googleMap;
                 fetchEvents(); // Fetch events after the map is ready
             });
-        } else {
+        } else
+        {
             fetchEvents(); // Fetch events even if the map is not available
         }
     }
 
-//    @Override
-//    public void onMapReady(@NonNull GoogleMap googleMap) {
-//        mMap = googleMap;
-//
-//        // Set default location (example: New York City)
-//        LatLng defaultLocation = new LatLng(40.7128, -74.0060);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
-//
-//        // Add a sample marker
-//        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Event Location"));
-//    }
+    public void onMapReady(@NonNull GoogleMap googleMap)
+    {
+        mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
-    private void fetchEvents() {
+        // Set default location (example: New York City)
+        LatLng defaultLocation = new LatLng(40.7128, -74.0060);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+
+        // Add a sample marker
+        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Event Location"));
+    }
+
+    private void fetchEvents()
+    {
         db = FirebaseFirestore.getInstance();
         db.collection("events")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
+                .addSnapshotListener((value, error) ->
+                {
+                    if (error != null)
+                    {
                         Log.e("EventsFragment", "Error fetching events", error);
                         return;
                     }
 
                     List<Event> eventList = new ArrayList<>();
-                    for (DocumentSnapshot doc : value.getDocuments()) {
+                    for (DocumentSnapshot doc : value.getDocuments())
+                    {
                         Event event = doc.toObject(Event.class);
 
                         // Extract GeoPoint manually if necessary
-                        if (doc.contains("location")) {
+                        if (doc.contains("location"))
+                        {
                             GeoPoint geoPoint = doc.getGeoPoint("location");
-                            if (geoPoint != null) {
+                            if (geoPoint != null)
+                            {
                                 event.setLocation(geoPoint);
                             }
                         }
@@ -116,13 +134,16 @@ public class EventsFragment extends Fragment {
                 });
     }
 
-    private void updateMapWithEvents(List<Event> events) {
+    private void updateMapWithEvents(List<Event> events)
+    {
         if (mMap == null) return;
 
         mMap.clear(); // Clear old markers
 
-        for (Event event : events) {
-            if (event.getLocation() != null) {
+        for (Event event : events)
+        {
+            if (event.getLocation() != null)
+            {
                 LatLng eventLocation = new LatLng(event.getLocation().getLatitude(), event.getLocation().getLongitude());
                 mMap.addMarker(new MarkerOptions()
                         .position(eventLocation)
