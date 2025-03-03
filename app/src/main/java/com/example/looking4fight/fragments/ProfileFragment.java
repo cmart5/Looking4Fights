@@ -142,6 +142,8 @@ public class ProfileFragment extends Fragment {
             builder.setView(dialogView);
             setupAutoHighlight(dialogView);
 
+            //TODO: Figure out how to change colors of edit profile dialog
+
             EditText editUserName = dialogView.findViewById(R.id.edit_username);
             EditText editUserBio = dialogView.findViewById(R.id.edit_bio);
             EditText editHeight = dialogView.findViewById(R.id.edit_height);
